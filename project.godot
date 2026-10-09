@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="New Game Project"
+config/name="Vix Wave Survival"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [display]

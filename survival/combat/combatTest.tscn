@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bkrds4fucfmo4"]
+
+[node name="CombatTest" type="Node2D" unique_id=1045885381]
+
+[node name="bg" type="Polygon2D" parent="." unique_id=1938123881]
+color = Color(0.5592148, 0.6748467, 0.6326547, 1)
+polygon = PackedVector2Array(0, 0, 1152, 0, 1152, 648, 0, 648)
