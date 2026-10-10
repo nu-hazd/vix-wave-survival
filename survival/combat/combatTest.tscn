@@ -1,7 +1,50 @@
 [gd_scene format=3 uid="uid://bkrds4fucfmo4"]
 
+[ext_resource type="PackedScene" uid="uid://csxpggf7plu5r" path="res://entity/vix/vix.tscn" id="1_w1dqn"]
+[ext_resource type="PackedScene" uid="uid://c6t30mlbwb7lm" path="res://entity/enemies/tempEnemy.tscn" id="2_r2iyo"]
+
+[sub_resource type="GDScript" id="GDScript_qgwgs"]
+script/source = "extends Node2D
+
+
+func _on_temp_enemy_dead() -> void:
+	print(\"enemy ded\")
+
+
+func _on_temp_enemy_health_changed(oldHealth: Variant, newHealth: Variant) -> void:
+	print(\"Enemy health changed: from %f to %f\" % [oldHealth,newHealth])
+
+
+func _on_vix_dead() -> void:
+	$Vix.set_process(false)
+"
+
+[sub_resource type="Gradient" id="Gradient_w1dqn"]
+colors = PackedColorArray(0, 0.51584375, 0, 1, 1, 0.60634255, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qgwgs"]
+gradient = SubResource("Gradient_w1dqn")
+
 [node name="CombatTest" type="Node2D" unique_id=1045885381]
+script = SubResource("GDScript_qgwgs")
 
 [node name="bg" type="Polygon2D" parent="." unique_id=1938123881]
 color = Color(0.5592148, 0.6748467, 0.6326547, 1)
-polygon = PackedVector2Array(0, 0, 1152, 0, 1152, 648, 0, 648)
+texture = SubResource("GradientTexture1D_qgwgs")
+polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
+
+[node name="Vix" parent="." unique_id=442788146 instance=ExtResource("1_w1dqn")]
+position = Vector2(600, 120)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=129063523]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=280194388]
+build_mode = 1
+polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
+
+[node name="TempEnemy" parent="." unique_id=1934584252 instance=ExtResource("2_r2iyo")]
+position = Vector2(656, 120)
+
+[connection signal="dead" from="Vix" to="." method="_on_vix_dead"]
+[connection signal="dead" from="TempEnemy" to="." method="_on_temp_enemy_dead"]
+[connection signal="healthChanged" from="TempEnemy" to="." method="_on_temp_enemy_health_changed"]
