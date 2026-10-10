@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c6t30mlbwb7lm"]
+
+[ext_resource type="Script" uid="uid://ba2ef4shxsita" path="res://entity/enemies/enemy.gd" id="1_cghpv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i2doe"]
+size = Vector2(16, 16)
+
+[node name="TempEnemy" type="CharacterBody2D" unique_id=1934584252]
+script = ExtResource("1_cghpv")
+metadata/_custom_type_script = "uid://ba2ef4shxsita"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1078973939]
+shape = SubResource("RectangleShape2D_i2doe")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=914355534]
+polygon = PackedVector2Array(-8, -6, -6, 4, 2, 6, 6, -8)

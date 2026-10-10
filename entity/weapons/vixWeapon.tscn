@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://duixbat2bky4h"]
+
+[ext_resource type="Script" uid="uid://bcb038hqtel0j" path="res://entity/weapons/vixWeapon.gd" id="1_l6o6e"]
+
+[sub_resource type="Animation" id="Animation_jxluf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("katana:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("katana:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("katana:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_a61ik"]
+resource_name = "swing"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("katana:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.6283185307179586, -0.6283185307179586]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("katana:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("katana:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jv5kn"]
+_data = {
+&"RESET": SubResource("Animation_jxluf"),
+&"swing": SubResource("Animation_a61ik")
+}
+
+[node name="vixWeapon" type="Node2D" unique_id=1239027359]
+script = ExtResource("1_l6o6e")
+
+[node name="katana" type="Area2D" parent="." unique_id=1450377317]
+position = Vector2(7.9999995, 0)
+scale = Vector2(0.3, 0.3)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="collision" type="CollisionPolygon2D" parent="katana" unique_id=1496637589]
+position = Vector2(-1.9999995, 2)
+polygon = PackedVector2Array(8, -6, 8, 0, 88, 0, 48, -6)
+
+[node name="blade" type="Polygon2D" parent="katana" unique_id=1087910792]
+position = Vector2(-1.9999995, 2)
+color = Color(0.58995914, 0.01299925, 0.59279764, 1)
+polygon = PackedVector2Array(8, -6, 8, 0, 88, 0, 48, -6)
+
+[node name="hilt" type="Polygon2D" parent="katana" unique_id=1649683506]
+color = Color(0.83524966, 0, 0.16526267, 1)
+polygon = PackedVector2Array(2.0000005, 8, 2.0000005, -8, 3.8979287, -16.000002, 6.0000005, -8, 6.0000005, 8, 4.1080627, 16.000002)
+
+[node name="grip" type="Polygon2D" parent="katana" unique_id=796049972]
+position = Vector2(2.0000005, -0.49999988)
+scale = Vector2(1, 0.87500006)
+color = Color(0.23619053, 0.1661647, 0, 1)
+polygon = PackedVector2Array(-32, -4, -32, 4, -16, 4, 0, 4, 0, -4)
+
+[node name="cooldown" type="Timer" parent="." unique_id=655594185]
+one_shot = true
+
+[node name="swing" type="AnimationPlayer" parent="." unique_id=627680892]
+libraries/ = SubResource("AnimationLibrary_jv5kn")
+
+[connection signal="body_entered" from="katana" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]
