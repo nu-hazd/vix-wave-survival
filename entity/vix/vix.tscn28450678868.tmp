@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://cqsw23huvl7qb"]
+
+[ext_resource type="PackedScene" uid="uid://ka8un65ktlfs" path="res://entity/entity.tscn" id="1_8e3um"]
+[ext_resource type="Script" uid="uid://c1erh4wlj2ch6" path="res://entity/vix/vix.gd" id="2_oyyjl"]
+[ext_resource type="PackedScene" uid="uid://duixbat2bky4h" path="res://entity/weapons/vixWeapon.tscn" id="3_ntvab"]
+[ext_resource type="Script" uid="uid://cooq3k1wb356u" path="res://entity/vix/vixController.gd" id="5_ntvab"]
+[ext_resource type="Script" uid="uid://bj45n3wpons3o" path="res://entity/states/idle.gd" id="5_xv7w4"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ntvab"]
+graph_offset = Vector2(15, -20)
+
+[sub_resource type="Animation" id="Animation_rdmia"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_52xb4"]
+_data = {
+&"RESET": SubResource("Animation_rdmia")
+}
+
+[node name="Vix" unique_id=1129406718 instance=ExtResource("1_8e3um")]
+script = ExtResource("2_oyyjl")
+iFrameDuration = null
+
+[node name="vixWeapon" parent="." index="1" unique_id=1239027359 node_paths=PackedStringArray("user") instance=ExtResource("3_ntvab")]
+user = NodePath("..")
+
+[node name="controller" parent="." index="4" unique_id=1704558169]
+script = ExtResource("5_ntvab")
+
+[node name="movement" parent="." index="6" unique_id=2075889983 node_paths=PackedStringArray("entity", "controller")]
+entity = NodePath("..")
+controller = NodePath("../controller")
+
+[node name="animHanlder" parent="movement" index="0" unique_id=230060077]
+root_node = NodePath("..")
+tree_root = SubResource("AnimationNodeStateMachine_ntvab")
+
+[node name="animPlayer" parent="movement" index="1" unique_id=1881139134]
+libraries/ = SubResource("AnimationLibrary_52xb4")
+
+[node name="idle" type="Node" parent="movement/states" parent_id_path=PackedInt32Array(858496578) index="0" unique_id=1095811840]
+script = ExtResource("5_xv7w4")
+
+[node name="move" type="Node" parent="movement/states" parent_id_path=PackedInt32Array(858496578) index="1" unique_id=2084511146]
+
+[node name="tumble" type="Node" parent="movement/states" parent_id_path=PackedInt32Array(858496578) index="2" unique_id=1398465085]
+
+[node name="stun" type="Node" parent="movement/states" parent_id_path=PackedInt32Array(858496578) index="3" unique_id=80905837]
+
+[connection signal="emitAction" from="controller" to="vixWeapon" method="_on_controller_emit_action"]
+[connection signal="lastNonZeroDirChanged" from="controller" to="vixWeapon" method="_on_controller_last_non_zero_dir_changed"]

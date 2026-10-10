@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://kh4lkynx35yo"]
+
+[ext_resource type="Script" uid="uid://dc64e780foimq" path="res://entity/weapons/weapon.gd" id="1_5y3ho"]
+
+[node name="Weapon" type="Node2D" unique_id=78922822]
+script = ExtResource("1_5y3ho")
+metadata/_custom_type_script = "uid://dc64e780foimq"
+
+[node name="cooldown" type="Timer" parent="." unique_id=787611975]
+
+[connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]

@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://ka8un65ktlfs"]
+
+[ext_resource type="Script" uid="uid://bq8wvp7eedjwx" path="res://entity/entity.gd" id="1_bclhr"]
+[ext_resource type="Script" uid="uid://ce8q3hbypkubb" path="res://entity/components/controller.gd" id="2_glcaf"]
+[ext_resource type="Script" uid="uid://8nh6g3bytf87" path="res://entity/components/movement.gd" id="2_mckvm"]
+[ext_resource type="Script" uid="uid://bykjgw77guege" path="res://entity/components/stats.gd" id="3_v200u"]
+[ext_resource type="Script" uid="uid://bj45n3wpons3o" path="res://entity/states/idle.gd" id="5_jspmv"]
+[ext_resource type="Script" uid="uid://b3hcg8ps56c2v" path="res://entity/states/move.gd" id="6_s1kue"]
+
+[node name="Entity" type="CharacterBody2D" unique_id=1129406718 node_paths=PackedStringArray("stats")]
+script = ExtResource("1_bclhr")
+stats = NodePath("stats")
+metadata/_custom_type_script = "uid://bq8wvp7eedjwx"
+
+[node name="collision" type="CollisionShape2D" parent="." unique_id=1076632405]
+
+[node name="sprite" type="Sprite2D" parent="." unique_id=399970410]
+
+[node name="invincibility" type="Timer" parent="." unique_id=1503310889]
+one_shot = true
+
+[node name="controller" type="Node" parent="." unique_id=1704558169]
+script = ExtResource("2_glcaf")
+metadata/_custom_type_script = "uid://ce8q3hbypkubb"
+
+[node name="stats" type="Node" parent="." unique_id=205009982]
+script = ExtResource("3_v200u")
+metadata/_custom_type_script = "uid://bykjgw77guege"
+
+[node name="movement" type="Node" parent="." unique_id=2075889983 node_paths=PackedStringArray("entity", "controller")]
+script = ExtResource("2_mckvm")
+entity = NodePath("..")
+controller = NodePath("../controller")
+
+[node name="animHanlder" type="AnimationTree" parent="movement" unique_id=230060077]
+
+[node name="animPlayer" type="AnimationPlayer" parent="movement" unique_id=1881139134]
+root_node = NodePath("../..")
+
+[node name="states" type="Node" parent="movement" unique_id=858496578]
+
+[node name="idle" type="Node" parent="movement/states" unique_id=1885132874]
+script = ExtResource("5_jspmv")
+
+[node name="move" type="Node" parent="movement/states" unique_id=256962390]
+script = ExtResource("6_s1kue")
+
+[node name="push" type="Node" parent="movement/states" unique_id=1042254892]
+
+[node name="stun" type="Node" parent="movement/states" unique_id=281262726]
+
+[node name="guard" type="Node2D" parent="." unique_id=83273739]
+
+[connection signal="timeout" from="invincibility" to="." method="_on_invincibility_timeout"]

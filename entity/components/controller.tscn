@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://skw0xqoe4jh7"]
-
-[ext_resource type="Script" uid="uid://hoigapaat4dl" path="res://entity/components/controller.gd" id="1_7aqfl"]
-
-[node name="Controller" type="Node" unique_id=1240166585]
-script = ExtResource("1_7aqfl")
-metadata/_custom_type_script = "uid://hoigapaat4dl"

@@ -1,47 +1,6 @@
 [gd_scene format=3 uid="uid://2xu365g3h5gv"]
 
 [ext_resource type="Script" uid="uid://ba2ef4shxsita" path="res://entity/enemies/enemy.gd" id="1_ydnxe"]
-[ext_resource type="Script" uid="uid://c1y0deboy1iqe" path="res://entity/components/movement/movementComponent.gd" id="2_mac58"]
-[ext_resource type="Script" uid="uid://bj45n3wpons3o" path="res://entity/states/movement/idle.gd" id="3_ukv5p"]
-[ext_resource type="Script" uid="uid://hoigapaat4dl" path="res://entity/components/controller.gd" id="4_vhaig"]
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_glcaf"]
-
-[sub_resource type="Animation" id="Animation_glcaf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [null]
-}
-
-[sub_resource type="Animation" id="Animation_jspmv"]
-resource_name = "new_animation"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 1,
-"values": []
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_s1kue"]
-_data = {
-&"RESET": SubResource("Animation_glcaf"),
-&"new_animation": SubResource("Animation_jspmv")
-}
 
 [node name="Enemy" type="CharacterBody2D" unique_id=852470078]
 collision_layer = 2
@@ -52,27 +11,3 @@ metadata/_custom_type_script = "uid://ba2ef4shxsita"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1972014929]
 
 [node name="sprite" type="Sprite2D" parent="." unique_id=1548617828]
-
-[node name="movement" type="Node" parent="." unique_id=417343051]
-script = ExtResource("2_mac58")
-
-[node name="blendspace" type="AnimationTree" parent="movement" unique_id=280602426]
-tree_root = SubResource("AnimationNodeBlendSpace2D_glcaf")
-parameters/blend_position = Vector2(0, 0)
-
-[node name="playback" type="AnimationPlayer" parent="movement" unique_id=882406054]
-root_node = NodePath("../..")
-libraries/ = SubResource("AnimationLibrary_s1kue")
-
-[node name="states" type="Node" parent="movement" unique_id=1862698785]
-
-[node name="run" type="Node" parent="movement/states" unique_id=1471211175]
-
-[node name="idle" type="Node" parent="movement/states" unique_id=1321480234]
-script = ExtResource("3_ukv5p")
-
-[node name="tumble" type="Node" parent="movement/states" unique_id=700337887]
-
-[node name="Controller" type="Node" parent="." unique_id=1584994555]
-script = ExtResource("4_vhaig")
-metadata/_custom_type_script = "uid://hoigapaat4dl"
