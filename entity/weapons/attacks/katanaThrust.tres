@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AttackData" format=3 uid="uid://dkcja5lchxqe2"]
+
+[ext_resource type="Script" uid="uid://c8giwvbdsdva0" path="res://entity/weapons/abstract/attackData.gd" id="1_wa563"]
+
+[resource]
+script = ExtResource("1_wa563")
+id = &"katanaThrust"
+basePhysicalDamage = 3
+baseGuardDamage = 8
+metadata/_custom_type_script = "uid://c8giwvbdsdva0"

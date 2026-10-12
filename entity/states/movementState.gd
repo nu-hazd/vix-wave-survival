@@ -1,9 +1,8 @@
 class_name MovementState extends EntityState
 
-var controller : ControllerComponent
 var animHandler : AnimationTree
+var movementComponent : MovementComponent
 
-# func onExit() -> void:
-	# animHandler.set("parameters/conditions/dash", false)
+
 func updateAnimHanlder() -> void:
 	pass

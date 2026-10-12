@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bkrds4fucfmo4"]
+
+[ext_resource type="PackedScene" uid="uid://cqsw23huvl7qb" path="res://entity/vix/vix.tscn" id="1_w1dqn"]
+[ext_resource type="PackedScene" uid="uid://c6t30mlbwb7lm" path="res://entity/enemies/tempenemy.tscn" id="2_r2iyo"]
+
+[sub_resource type="Gradient" id="Gradient_w1dqn"]
+colors = PackedColorArray(0, 0.51584375, 0, 1, 1, 0.60634255, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qgwgs"]
+gradient = SubResource("Gradient_w1dqn")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_w1dqn"]
+vertices = PackedVector2Array(790, 590, 10, 590, 10, 10, 790, 10)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)])
+
+[node name="CombatTest" type="Node2D" unique_id=1045885381]
+
+[node name="bg" type="Polygon2D" parent="." unique_id=1938123881]
+color = Color(0.5592148, 0.6748467, 0.6326547, 1)
+texture = SubResource("GradientTexture1D_qgwgs")
+polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
+
+[node name="walls" type="StaticBody2D" parent="." unique_id=129063523]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="walls" unique_id=280194388]
+build_mode = 1
+polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=249778651]
+navigation_polygon = SubResource("NavigationPolygon_w1dqn")
+
+[node name="Vix" parent="." unique_id=1129406718 instance=ExtResource("1_w1dqn")]
+position = Vector2(96, 40)
+
+[node name="tempEnemy" parent="." unique_id=427894373 instance=ExtResource("2_r2iyo")]
+position = Vector2(160, 48)

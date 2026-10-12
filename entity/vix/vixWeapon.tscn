@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bns7s2mb2dd76"]
+
+[ext_resource type="PackedScene" uid="uid://kh4lkynx35yo" path="res://entity/weapons/abstract/weapon.tscn" id="1_oujcr"]
+[ext_resource type="Script" uid="uid://c8giwvbdsdva0" path="res://entity/weapons/abstract/attackData.gd" id="2_6lrfp"]
+
+[sub_resource type="Animation" id="Animation_hgasl"]
+resource_name = "asda"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xoflv"]
+_data = {
+&"asda": SubResource("Animation_hgasl")
+}
+
+[node name="Weapon" unique_id=78922822 instance=ExtResource("1_oujcr")]
+attacks = Array[ExtResource("2_6lrfp")]([])
+
+[node name="attacks" parent="." index="0" unique_id=640062531]
+libraries/ = SubResource("AnimationLibrary_xoflv")
+
+[node name="blendspaces" parent="." index="1" unique_id=1496634554]
+parameters/blend_position = Vector2(-0.38164252, 0.09502268)

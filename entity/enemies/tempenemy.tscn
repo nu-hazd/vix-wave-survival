@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://c6t30mlbwb7lm"]
+
+[ext_resource type="PackedScene" uid="uid://bq644umpsvatx" path="res://entity/enemies/enemy.tscn" id="1_k2xcy"]
+[ext_resource type="Texture2D" uid="uid://u6xp27qvab60" path="res://assets/visual/sprites/Red/idle.png" id="2_wkwt6"]
+[ext_resource type="PackedScene" uid="uid://dsjqsiycj4442" path="res://entity/weapons/katana.tscn" id="3_4rh36"]
+[ext_resource type="AnimationLibrary" uid="uid://cp0glndy1n1tw" path="res://entity/resources/movement.res" id="4_w7m78"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fvs06"]
+radius = 4.472136
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rdmia"]
+animation = &"movement/idle_S"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dmy6b"]
+animation = &"movement/idle_S"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_52xb4"]
+animation = &"movement/idle_U"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vpchy"]
+animation = &"movement/idle_D"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_dmy6b"]
+blend_mode = 1
+blend_point_0/node = SubResource("AnimationNodeAnimation_rdmia")
+blend_point_0/pos = Vector2(-0.90000004, 0)
+blend_point_0/name = &"idle_S"
+blend_point_1/node = SubResource("AnimationNodeAnimation_dmy6b")
+blend_point_1/pos = Vector2(0.8, 0)
+blend_point_1/name = &"idle_S 2"
+blend_point_2/node = SubResource("AnimationNodeAnimation_52xb4")
+blend_point_2/pos = Vector2(0, -1)
+blend_point_2/name = &"idle_U"
+blend_point_3/node = SubResource("AnimationNodeAnimation_vpchy")
+blend_point_3/pos = Vector2(0, 1)
+blend_point_3/name = &"idle_D"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jaojs"]
+animation = &"movement/move_D"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nk7ws"]
+animation = &"movement/move_U"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tplb2"]
+animation = &"movement/move_S"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l5cs2"]
+animation = &"movement/move_S"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_rdmia"]
+blend_mode = 1
+blend_point_0/node = SubResource("AnimationNodeAnimation_jaojs")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_0/name = &"move_D"
+blend_point_1/node = SubResource("AnimationNodeAnimation_nk7ws")
+blend_point_1/pos = Vector2(0, -1)
+blend_point_1/name = &"move_U"
+blend_point_2/node = SubResource("AnimationNodeAnimation_tplb2")
+blend_point_2/pos = Vector2(0.8, 0)
+blend_point_2/name = &"move_S"
+blend_point_3/node = SubResource("AnimationNodeAnimation_l5cs2")
+blend_point_3/pos = Vector2(-0.90000004, 0)
+blend_point_3/name = &"move_S 2"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jaojs"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dmy6b"]
+advance_mode = 2
+advance_condition = &"move"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_52xb4"]
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3hw2s"]
+states/idle/node = SubResource("AnimationNodeBlendSpace2D_dmy6b")
+states/idle/position = Vector2(317, 100)
+states/move/node = SubResource("AnimationNodeBlendSpace2D_rdmia")
+states/move/position = Vector2(460, 100)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_jaojs"), "idle", "move", SubResource("AnimationNodeStateMachineTransition_dmy6b"), "move", "idle", SubResource("AnimationNodeStateMachineTransition_52xb4")]
+graph_offset = Vector2(-97, -76)
+
+[node name="tempEnemy" unique_id=1129406718 instance=ExtResource("1_k2xcy")]
+
+[node name="collision" parent="." index="0" unique_id=1076632405]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_fvs06")
+
+[node name="sprite" parent="." index="1" unique_id=399970410]
+modulate = Color(0.92941177, 0.6901961, 0.105882354, 1)
+texture = ExtResource("2_wkwt6")
+hframes = 2
+vframes = 3
+frame = 3
+
+[node name="animHanlder" parent="coordinator/movement" parent_id_path=PackedInt32Array(2075889983) index="0" unique_id=230060077]
+root_node = NodePath("../../..")
+tree_root = SubResource("AnimationNodeStateMachine_3hw2s")
+anim_player = NodePath("../animPlayer")
+parameters/conditions/idle = false
+parameters/conditions/move = false
+parameters/idle/blend_position = Vector2(0, 0)
+parameters/move/blend_position = Vector2(0, 0)
+
+[node name="animPlayer" parent="coordinator/movement" parent_id_path=PackedInt32Array(2075889983) index="1" unique_id=1881139134]
+libraries/movement = ExtResource("4_w7m78")
+
+[node name="katana" parent="." index="3" unique_id=78922822 instance=ExtResource("3_4rh36")]
+
+[node name="stats" parent="." index="5" unique_id=205009982]
+vigor = 70
+technique = 30
+dexterity = 10
+flow = 30
+
+[connection signal="actionRequested" from="controller" to="coordinator" method="actionRequested"]

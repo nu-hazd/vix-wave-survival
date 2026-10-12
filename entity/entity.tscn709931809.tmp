@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://ka8un65ktlfs"]
+
+[ext_resource type="Script" uid="uid://bq8wvp7eedjwx" path="res://entity/entity.gd" id="1_bclhr"]
+[ext_resource type="Script" uid="uid://ce8q3hbypkubb" path="res://entity/components/controller.gd" id="2_glcaf"]
+[ext_resource type="Script" uid="uid://8nh6g3bytf87" path="res://entity/components/movement.gd" id="2_mckvm"]
+[ext_resource type="Script" uid="uid://dd4uyd4o7vs64" path="res://entity/components/combat.gd" id="2_wrmdn"]
+[ext_resource type="Script" uid="uid://bykjgw77guege" path="res://entity/components/stats.gd" id="3_v200u"]
+[ext_resource type="Script" uid="uid://co8vwesjrgmif" path="res://entity/components/guard.gd" id="3_wrmdn"]
+[ext_resource type="Script" uid="uid://bj45n3wpons3o" path="res://entity/states/idle.gd" id="5_jspmv"]
+[ext_resource type="Script" uid="uid://b3hcg8ps56c2v" path="res://entity/states/move.gd" id="6_s1kue"]
+[ext_resource type="Script" uid="uid://ega8kmwgcsj5" path="res://entity/states/movementState.gd" id="8_g2k83"]
+[ext_resource type="Script" uid="uid://0ax1o1tb8h5e" path="res://entity/components/health.gd" id="8_whxwk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g2k83"]
+font_size = 32
+
+[sub_resource type="GDScript" id="GDScript_qgwgs"]
+script/source = "extends Label
+
+
+func process(delta: float) -> void:
+	text = \"\"\"
+			Health: %f
+			Guard State: %s
+			Guard: %s
+			Max Guard: %s
+			Movement Penaly: %s
+	\"\"\" % [$\"../../health\".health, $\"../../guard\".state,$\"../../guard\".currentGuard,$\"../../guard\".maxGuard,$\"../../movement\".getCurrentMultiplier() ]
+"
+
+[node name="Entity" type="CharacterBody2D" unique_id=1129406718 node_paths=PackedStringArray("sprite", "stats")]
+motion_mode = 1
+script = ExtResource("1_bclhr")
+sprite = NodePath("sprite")
+stats = NodePath("stats")
+metadata/_custom_type_script = "uid://bq8wvp7eedjwx"
+
+[node name="collision" type="CollisionShape2D" parent="." unique_id=1076632405]
+
+[node name="sprite" type="Sprite2D" parent="." unique_id=399970410]
+
+[node name="coordinator" type="Node2D" parent="." unique_id=1873915501 node_paths=PackedStringArray("guard", "movement", "health")]
+script = ExtResource("2_wrmdn")
+guard = NodePath("guard")
+movement = NodePath("movement")
+health = NodePath("health")
+metadata/_custom_type_script = "uid://dd4uyd4o7vs64"
+
+[node name="guard" type="Area2D" parent="coordinator" unique_id=567895789]
+script = ExtResource("3_wrmdn")
+metadata/_custom_type_script = "uid://co8vwesjrgmif"
+
+[node name="health" type="Node" parent="coordinator" unique_id=1583941059]
+script = ExtResource("8_whxwk")
+
+[node name="movement" type="Node" parent="coordinator" unique_id=2075889983 node_paths=PackedStringArray("initialState")]
+script = ExtResource("2_mckvm")
+initialState = NodePath("states/idle")
+
+[node name="animHanlder" type="AnimationTree" parent="coordinator/movement" unique_id=230060077]
+
+[node name="animPlayer" type="AnimationPlayer" parent="coordinator/movement" unique_id=1881139134]
+root_node = NodePath("../../..")
+
+[node name="states" type="Node" parent="coordinator/movement" unique_id=858496578]
+
+[node name="idle" type="Node" parent="coordinator/movement/states" unique_id=1885132874]
+script = ExtResource("5_jspmv")
+
+[node name="move" type="Node" parent="coordinator/movement/states" unique_id=256962390]
+script = ExtResource("6_s1kue")
+
+[node name="push" type="Node" parent="coordinator/movement/states" unique_id=1042254892]
+script = ExtResource("8_g2k83")
+
+[node name="stun" type="Node" parent="coordinator/movement/states" unique_id=281262726]
+script = ExtResource("8_g2k83")
+
+[node name="controller" type="Node" parent="." unique_id=1704558169]
+script = ExtResource("2_glcaf")
+metadata/_custom_type_script = "uid://ce8q3hbypkubb"
+
+[node name="stats" type="Node" parent="." unique_id=205009982]
+script = ExtResource("3_v200u")
+metadata/_custom_type_script = "uid://bykjgw77guege"
+
+[node name="CanvasLayer" type="Control" parent="." unique_id=779868505]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=689017408]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_g2k83")
+script = SubResource("GDScript_qgwgs")
+
+[connection signal="actionRequested" from="controller" to="coordinator" method="actionRequested"]

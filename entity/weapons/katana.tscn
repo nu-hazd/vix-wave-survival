@@ -1,0 +1,217 @@
+[gd_scene format=3 uid="uid://dsjqsiycj4442"]
+
+[ext_resource type="PackedScene" uid="uid://kh4lkynx35yo" path="res://entity/weapons/abstract/weapon.tscn" id="1_miw4x"]
+[ext_resource type="Script" uid="uid://ds4eswelrffmp" path="res://entity/weapons/katana.gd" id="2_miw4x"]
+[ext_resource type="PackedScene" uid="uid://cx48dqe5d7aut" path="res://entity/weapons/abstract/hitbox.tscn" id="3_c1t6h"]
+[ext_resource type="Script" uid="uid://c8giwvbdsdva0" path="res://entity/weapons/abstract/attackData.gd" id="3_vd3d6"]
+[ext_resource type="Resource" uid="uid://c6ollk5wqrfqc" path="res://entity/weapons/attacks/katanaSwingLight.tres" id="4_qg767"]
+[ext_resource type="Resource" uid="uid://dkcja5lchxqe2" path="res://entity/weapons/attacks/katanaThrust.tres" id="5_rr4gu"]
+
+[sub_resource type="Animation" id="Animation_miw4x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0017613769]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pivot:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(6, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("pivot/blade:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.24840015, 0.24840018, 0.24840015, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("pivot:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_c1t6h"]
+resource_name = "swingActive"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-1.5707963267948966, 1.5707963267948966]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pivot:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(6, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("pivot/blade:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.83889705, 0.83889705, 0.838897, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vd3d6"]
+resource_name = "swingRecovery"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pivot/blade:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.24840015, 0.24840018, 0.24840015, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_itapa"]
+resource_name = "swingStart"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -1.5707963267948966]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pivot:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(6, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("pivot/blade:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.24840015, 0.24840018, 0.24840015, 1), Color(0.5132329, 0.51323295, 0.51323277, 1), Color(0.24840015, 0.24840018, 0.24840015, 1), Color(0.5132329, 0.51323295, 0.51323277, 1), Color(0.24840015, 0.24840018, 0.24840015, 1), Color(0.5132329, 0.51323295, 0.51323277, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("pivot:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c1t6h"]
+_data = {
+&"RESET": SubResource("Animation_miw4x"),
+&"swingActive": SubResource("Animation_c1t6h"),
+&"swingRecovery": SubResource("Animation_vd3d6"),
+&"swingStart": SubResource("Animation_itapa")
+}
+
+[node name="katana" unique_id=78922822 node_paths=PackedStringArray("hitbox") instance=ExtResource("1_miw4x")]
+script = ExtResource("2_miw4x")
+hitbox = NodePath("pivot/bladeHitbox")
+attacks = Array[ExtResource("3_vd3d6")]([ExtResource("4_qg767"), ExtResource("5_rr4gu")])
+
+[node name="pivot" type="Node2D" parent="." index="0" unique_id=482610853]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(6, 0)
+rotation = 0.0017613769
+
+[node name="handle" type="Polygon2D" parent="pivot" index="0" unique_id=1552087633]
+color = Color(0.22617859, 0.111177064, 7.219613e-08, 1)
+polygon = PackedVector2Array(-2, 1, -2, -1, 3, -1, 3, 1)
+
+[node name="hilt" type="Polygon2D" parent="pivot" index="1" unique_id=839540243]
+color = Color(1, 0.62352943, 0.023529412, 1)
+polygon = PackedVector2Array(3, 3, 3, -3, 4, -3, 4, 3)
+
+[node name="blade" type="Polygon2D" parent="pivot" index="2" unique_id=690550106]
+color = Color(0.24840015, 0.24840018, 0.24840015, 1)
+polygon = PackedVector2Array(4, -1, 18, -1, 14, 1, 4, 1)
+
+[node name="bladeHitbox" parent="pivot" index="3" unique_id=659864476 instance=ExtResource("3_c1t6h")]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="pivot/bladeHitbox" index="0" unique_id=1639094337]
+polygon = PackedVector2Array(4, -1, 18, -1, 14, 1, 4, 1)
+
+[node name="attacks" parent="." index="1" unique_id=640062531]
+libraries/ = SubResource("AnimationLibrary_c1t6h")

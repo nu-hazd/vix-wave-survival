@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cx48dqe5d7aut"]
+
+[ext_resource type="Script" uid="uid://cfid80da6schk" path="res://entity/weapons/abstract/attackHitbox.gd" id="1_qsqa2"]
+
+[node name="Hitbox" type="Area2D" unique_id=659864476]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_qsqa2")
+metadata/_custom_type_script = "uid://cfid80da6schk"
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

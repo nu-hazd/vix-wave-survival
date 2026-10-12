@@ -1,6 +1,7 @@
-class_name EntityStatComponent extends Node
+class_name EntityStatsComponent extends Node
 
-@export var maxHealth : int = 100
-@export var dexterity : int = 10
-@export var strength : int = 10
-@export var finesse : int = 10
+
+@export var vigor : int = 1 # Max hp, max guard
+@export var technique : int = 1 # Weapon damage, guard damage
+@export var dexterity : int = 1 # Movement speed, stun recovery
+@export var flow : int = 1 # Parry window, instinct build up

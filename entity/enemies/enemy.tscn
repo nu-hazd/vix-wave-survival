@@ -1,13 +1,19 @@
-[gd_scene format=3 uid="uid://2xu365g3h5gv"]
+[gd_scene format=3 uid="uid://bq644umpsvatx"]
 
-[ext_resource type="Script" uid="uid://ba2ef4shxsita" path="res://entity/enemies/enemy.gd" id="1_ydnxe"]
+[ext_resource type="PackedScene" uid="uid://ka8un65ktlfs" path="res://entity/entity.tscn" id="1_vrtnx"]
+[ext_resource type="Script" uid="uid://ba2ef4shxsita" path="res://entity/enemies/enemy.gd" id="2_4hnbk"]
+[ext_resource type="Script" uid="uid://cje8uya78vvv8" path="res://entity/enemies/enemyController.gd" id="2_rit60"]
 
-[node name="Enemy" type="CharacterBody2D" unique_id=852470078]
-collision_layer = 2
-collision_mask = 16
-script = ExtResource("1_ydnxe")
-metadata/_custom_type_script = "uid://ba2ef4shxsita"
+[node name="enemy" unique_id=1129406718 instance=ExtResource("1_vrtnx")]
+script = ExtResource("2_4hnbk")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1972014929]
+[node name="controller" parent="." index="3" unique_id=1704558169 node_paths=PackedStringArray("enemy")]
+script = ExtResource("2_rit60")
+enemy = NodePath("..")
+findPlayerChance = 6
+fightSkill = 5
+fightStyle = 0
 
-[node name="sprite" type="Sprite2D" parent="." unique_id=1548617828]
+[node name="pathfinder" type="NavigationAgent2D" parent="." index="6" unique_id=2129943340]
+
+[node name="aggroRange" type="Area2D" parent="." index="7" unique_id=916001271]

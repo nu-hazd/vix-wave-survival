@@ -3,12 +3,36 @@
 [ext_resource type="Script" uid="uid://bq8wvp7eedjwx" path="res://entity/entity.gd" id="1_bclhr"]
 [ext_resource type="Script" uid="uid://ce8q3hbypkubb" path="res://entity/components/controller.gd" id="2_glcaf"]
 [ext_resource type="Script" uid="uid://8nh6g3bytf87" path="res://entity/components/movement.gd" id="2_mckvm"]
+[ext_resource type="Script" uid="uid://dd4uyd4o7vs64" path="res://entity/components/coordinator.gd" id="2_wrmdn"]
+[ext_resource type="PackedScene" uid="uid://dwxi01k08qi57" path="res://entity/components/guard.tscn" id="3_8vg6i"]
 [ext_resource type="Script" uid="uid://bykjgw77guege" path="res://entity/components/stats.gd" id="3_v200u"]
 [ext_resource type="Script" uid="uid://bj45n3wpons3o" path="res://entity/states/idle.gd" id="5_jspmv"]
 [ext_resource type="Script" uid="uid://b3hcg8ps56c2v" path="res://entity/states/move.gd" id="6_s1kue"]
+[ext_resource type="Script" uid="uid://ega8kmwgcsj5" path="res://entity/states/movementState.gd" id="8_g2k83"]
+[ext_resource type="Script" uid="uid://0ax1o1tb8h5e" path="res://entity/components/health.gd" id="8_whxwk"]
 
-[node name="Entity" type="CharacterBody2D" unique_id=1129406718 node_paths=PackedStringArray("stats")]
+[sub_resource type="LabelSettings" id="LabelSettings_g2k83"]
+font_size = 32
+
+[sub_resource type="GDScript" id="GDScript_qgwgs"]
+script/source = "extends Label
+
+
+func _process(_delta: float) -> void:
+	text = \"\"\"
+			Last dir: %s
+			Move dir: %s
+			Penalty: %s
+	\"\"\" % [ $\"../../coordinator/movement\".lastDir, 
+			$\"../..\".velocity.normalized(),
+			$\"../../coordinator/movement\".getCurrentMultiplier()
+			]
+"
+
+[node name="Entity" type="CharacterBody2D" unique_id=1129406718 node_paths=PackedStringArray("sprite", "stats")]
+motion_mode = 1
 script = ExtResource("1_bclhr")
+sprite = NodePath("sprite")
 stats = NodePath("stats")
 metadata/_custom_type_script = "uid://bq8wvp7eedjwx"
 
@@ -16,8 +40,40 @@ metadata/_custom_type_script = "uid://bq8wvp7eedjwx"
 
 [node name="sprite" type="Sprite2D" parent="." unique_id=399970410]
 
-[node name="invincibility" type="Timer" parent="." unique_id=1503310889]
-one_shot = true
+[node name="coordinator" type="Node2D" parent="." unique_id=1873915501 node_paths=PackedStringArray("guard", "movement", "health")]
+script = ExtResource("2_wrmdn")
+guard = NodePath("guard")
+movement = NodePath("movement")
+health = NodePath("health")
+metadata/_custom_type_script = "uid://dd4uyd4o7vs64"
+
+[node name="guard" parent="coordinator" unique_id=1099355642 instance=ExtResource("3_8vg6i")]
+
+[node name="health" type="Node" parent="coordinator" unique_id=1583941059]
+script = ExtResource("8_whxwk")
+
+[node name="movement" type="Node" parent="coordinator" unique_id=2075889983 node_paths=PackedStringArray("initialState")]
+script = ExtResource("2_mckvm")
+initialState = NodePath("states/idle")
+
+[node name="animHanlder" type="AnimationTree" parent="coordinator/movement" unique_id=230060077]
+
+[node name="animPlayer" type="AnimationPlayer" parent="coordinator/movement" unique_id=1881139134]
+root_node = NodePath("../../..")
+
+[node name="states" type="Node" parent="coordinator/movement" unique_id=858496578]
+
+[node name="idle" type="Node" parent="coordinator/movement/states" unique_id=1885132874]
+script = ExtResource("5_jspmv")
+
+[node name="move" type="Node" parent="coordinator/movement/states" unique_id=256962390]
+script = ExtResource("6_s1kue")
+
+[node name="roll" type="Node" parent="coordinator/movement/states" unique_id=1042254892]
+script = ExtResource("8_g2k83")
+
+[node name="stun" type="Node" parent="coordinator/movement/states" unique_id=281262726]
+script = ExtResource("8_g2k83")
 
 [node name="controller" type="Node" parent="." unique_id=1704558169]
 script = ExtResource("2_glcaf")
@@ -27,28 +83,20 @@ metadata/_custom_type_script = "uid://ce8q3hbypkubb"
 script = ExtResource("3_v200u")
 metadata/_custom_type_script = "uid://bykjgw77guege"
 
-[node name="movement" type="Node" parent="." unique_id=2075889983 node_paths=PackedStringArray("entity", "controller")]
-script = ExtResource("2_mckvm")
-entity = NodePath("..")
-controller = NodePath("../controller")
+[node name="CanvasLayer" type="Control" parent="." unique_id=779868505]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="animHanlder" type="AnimationTree" parent="movement" unique_id=230060077]
-
-[node name="animPlayer" type="AnimationPlayer" parent="movement" unique_id=1881139134]
-root_node = NodePath("../..")
-
-[node name="states" type="Node" parent="movement" unique_id=858496578]
-
-[node name="idle" type="Node" parent="movement/states" unique_id=1885132874]
-script = ExtResource("5_jspmv")
-
-[node name="move" type="Node" parent="movement/states" unique_id=256962390]
-script = ExtResource("6_s1kue")
-
-[node name="push" type="Node" parent="movement/states" unique_id=1042254892]
-
-[node name="stun" type="Node" parent="movement/states" unique_id=281262726]
-
-[node name="guard" type="Node2D" parent="." unique_id=83273739]
-
-[connection signal="timeout" from="invincibility" to="." method="_on_invincibility_timeout"]
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=689017408]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_g2k83")
+script = SubResource("GDScript_qgwgs")

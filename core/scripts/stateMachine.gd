@@ -5,7 +5,7 @@ var currentState : State
 @export var initialState : State
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func ready() -> void:
 	currentState = initialState
 	currentState.onEnter()
 	currentState.nextState = null

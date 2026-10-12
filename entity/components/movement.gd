@@ -1,19 +1,58 @@
 class_name MovementComponent extends StateMachine
-
-@export var entity : Entity
-@export var controller : ControllerComponent
+var entity : Entity
 @onready var anim_hanlder: AnimationTree = $animHanlder
-var lastDir : Vector2 = Vector2.DOWN 
-func _ready() -> void:
+@onready var rollState : RollState = $states/roll
+var lastDir : Vector2 = Vector2.RIGHT 
+var directionLocked : bool = false
+var movementMultipliers : Dictionary[StringName,float] = {}
+var inputDirection : Vector2 = Vector2.ZERO
+var rollCooldown : int = 0
+func setup(ent : Entity, weapon : Weapon ) -> void:
+	self.entity = ent
 	for movementState in $states.get_children() as Array[MovementState]:
-		movementState.entity = entity
+		movementState.entity = ent
 		movementState.animHandler = anim_hanlder
-		movementState.controller = controller
-	super._ready()
-func process(delta) -> void:
-	super.process(delta)
-	print(getCurrentStateName())
+		movementState.movementComponent = self
+	weapon.attackStarted.connect(lockDirection)
+	weapon.attackFinished.connect(unlockDirection)
+	super.ready()
 
-func push(duration : float, distance : Vector2):
-	pass
-	
+func process(delta) -> void:
+	if not directionLocked:
+		if not entity.velocity.is_zero_approx():
+			lastDir = entity.velocity.normalized()
+			if not is_zero_approx(lastDir.x):
+				entity.sprite.scale.x = sign(lastDir.x)
+		currentState.updateAnimHanlder()
+		entity.coordinator.weapon.rotation = lastDir.angle()
+	rollCooldown = max(0, rollCooldown-1)
+	super.process(delta)
+func push(force : float, dir : Vector2):
+	print(force)
+	print(dir)
+func lockDirection(_s : StringName) -> void:
+	directionLocked = true
+func unlockDirection(_s : StringName) -> void:
+	directionLocked = false
+
+func requestRoll(direction: Vector2) -> bool:
+	if currentState != $states/idle and currentState != $states/move or rollCooldown > 0:
+		return false
+	var rollDirection := direction
+	if rollDirection.is_zero_approx():
+		rollDirection = lastDir
+	rollState.begin(rollDirection)
+	setCurrentState(rollState)
+	rollCooldown = rollState.baseRollDuration*3
+	return true
+
+func setMovementMultiplier(id : StringName, val : float) -> void:
+	movementMultipliers[id] = val
+func removeMovementMultiplier(id : StringName) -> void:
+	if movementMultipliers.has(id):
+		movementMultipliers.erase(id)
+func getCurrentMultiplier() -> float:
+	var maxMultiplier : float = 1.0
+	for key in movementMultipliers.keys():
+		maxMultiplier = min(maxMultiplier, movementMultipliers[key])
+	return maxMultiplier
