@@ -1,19 +1,42 @@
 [gd_scene format=3 uid="uid://bq644umpsvatx"]
 
-[ext_resource type="PackedScene" uid="uid://ka8un65ktlfs" path="res://entity/entity.tscn" id="1_vrtnx"]
+[ext_resource type="PackedScene" uid="uid://2xu365g3h5gv" path="res://entity/entity.tscn" id="1_vrtnx"]
 [ext_resource type="Script" uid="uid://ba2ef4shxsita" path="res://entity/enemies/enemy.gd" id="2_4hnbk"]
 [ext_resource type="Script" uid="uid://cje8uya78vvv8" path="res://entity/enemies/enemyController.gd" id="2_rit60"]
 
 [node name="enemy" unique_id=1129406718 instance=ExtResource("1_vrtnx")]
 script = ExtResource("2_4hnbk")
 
-[node name="controller" parent="." index="3" unique_id=1704558169 node_paths=PackedStringArray("enemy")]
+[node name="sprite" parent="." index="1" unique_id=399970410]
+region_rect = Rect2(0, 0, 64, 96)
+
+[node name="controller" parent="." index="4" unique_id=1623090921 node_paths=PackedStringArray("pathfinder", "enemy")]
 script = ExtResource("2_rit60")
+pathfinder = NodePath("pathfinder")
 enemy = NodePath("..")
 findPlayerChance = 6
+movementInterval = 60
+forgetPlayerTime = 60
+wanderRadius = 150
 fightSkill = 5
+disengageTime = 60
 fightStyle = 0
 
-[node name="pathfinder" type="NavigationAgent2D" parent="." index="6" unique_id=2129943340]
+[node name="pathfinder" type="NavigationAgent2D" parent="controller" index="0" unique_id=2129943340]
+path_desired_distance = 8.0
+target_desired_distance = 8.0
+path_postprocessing = 1
+debug_enabled = true
 
-[node name="aggroRange" type="Area2D" parent="." index="7" unique_id=916001271]
+[node name="fight" type="Area2D" parent="controller" index="1" unique_id=1234787158]
+collision_layer = 0
+collision_mask = 4
+
+[node name="aggro" type="Area2D" parent="controller" index="2" unique_id=916001271]
+collision_layer = 0
+collision_mask = 4
+
+[connection signal="body_entered" from="controller/fight" to="controller" method="_on_fight_body_entered"]
+[connection signal="body_exited" from="controller/fight" to="controller" method="_on_fight_body_exited"]
+[connection signal="body_entered" from="controller/aggro" to="controller" method="_on_aggro_body_entered"]
+[connection signal="body_exited" from="controller/aggro" to="controller" method="_on_aggro_body_exited"]

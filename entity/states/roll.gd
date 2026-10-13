@@ -12,17 +12,12 @@ func begin(direction: Vector2) -> void:
 	rollDirection = direction.normalized()
 	rollSpeed = baseRollSpeed + entity.stats.dexterity*3
 	ticksRemaining = baseRollDuration + int(entity.stats.flow / 4.0)
-
+	entity.coordinator.health.setInvincibility(ticksRemaining)
 
 func onEnter() -> void:
+	entity.sprite.modulate  = Color("ffffff50")
 	animHandler.set("parameters/conditions/roll", true)
-	# If your roll animation uses directional blending:
-	animHandler.set(
-		"parameters/roll/blend_position",
-		rollDirection
-	)
-
-
+	animHandler.set("parameters/roll/blend_position",rollDirection)
 func process(_delta: float) -> void:
 	entity.velocity = rollDirection * rollSpeed
 	entity.move_and_slide()
@@ -32,6 +27,6 @@ func process(_delta: float) -> void:
 			nextState = $"../idle"
 		else:
 			nextState = $"../move"
-
 func onExit() -> void:
+	entity.sprite.modulate = Color("ffffffff")
 	animHandler.set("parameters/conditions/roll", false)

@@ -4,6 +4,8 @@ class_name Coordinator extends Node2D
 @export var movement : MovementComponent
 @export var health : HealthComponent
 @export var weapon : Weapon
+@export var attack0ID : StringName = "katanaSwingLight"
+@export var attack1ID : StringName = "other"
 func _ready() -> void:
 	set_physics_process(false)
 func start(ent : Entity) -> void:
@@ -29,8 +31,9 @@ func directionChanged(newDirection: Vector2) -> void:
 func actionRequested(id : StringName) -> void:
 	match id:
 		ControllerComponent.attack0:
-			if weapon.canUse():
-				weapon.use("katanaSwingLight")
+			weapon.use(attack0ID)
+		ControllerComponent.attack1:
+			weapon.use(attack1ID)
 		ControllerComponent.block:
 			guard.block()
 		ControllerComponent.unblock:

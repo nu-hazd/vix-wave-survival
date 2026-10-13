@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ka8un65ktlfs"]
+[gd_scene format=3 uid="uid://2xu365g3h5gv"]
 
 [ext_resource type="Script" uid="uid://bq8wvp7eedjwx" path="res://entity/entity.gd" id="1_bclhr"]
 [ext_resource type="Script" uid="uid://ce8q3hbypkubb" path="res://entity/components/controller.gd" id="2_glcaf"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bykjgw77guege" path="res://entity/components/stats.gd" id="3_v200u"]
 [ext_resource type="Script" uid="uid://bj45n3wpons3o" path="res://entity/states/idle.gd" id="5_jspmv"]
 [ext_resource type="Script" uid="uid://b3hcg8ps56c2v" path="res://entity/states/move.gd" id="6_s1kue"]
+[ext_resource type="Script" uid="uid://c0jdjshgu1ydc" path="res://entity/states/roll.gd" id="8_8vg6i"]
 [ext_resource type="Script" uid="uid://ega8kmwgcsj5" path="res://entity/states/movementState.gd" id="8_g2k83"]
 [ext_resource type="Script" uid="uid://0ax1o1tb8h5e" path="res://entity/components/health.gd" id="8_whxwk"]
 
@@ -70,18 +71,18 @@ script = ExtResource("5_jspmv")
 script = ExtResource("6_s1kue")
 
 [node name="roll" type="Node" parent="coordinator/movement/states" unique_id=1042254892]
-script = ExtResource("8_g2k83")
+script = ExtResource("8_8vg6i")
 
 [node name="stun" type="Node" parent="coordinator/movement/states" unique_id=281262726]
 script = ExtResource("8_g2k83")
 
-[node name="controller" type="Node" parent="." unique_id=1704558169]
-script = ExtResource("2_glcaf")
-metadata/_custom_type_script = "uid://ce8q3hbypkubb"
-
 [node name="stats" type="Node" parent="." unique_id=205009982]
 script = ExtResource("3_v200u")
 metadata/_custom_type_script = "uid://bykjgw77guege"
+
+[node name="controller" type="Node2D" parent="." unique_id=1623090921]
+script = ExtResource("2_glcaf")
+metadata/_custom_type_script = "uid://ce8q3hbypkubb"
 
 [node name="CanvasLayer" type="Control" parent="." unique_id=779868505]
 layout_mode = 3

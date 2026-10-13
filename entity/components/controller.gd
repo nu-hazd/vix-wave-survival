@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 class_name ControllerComponent
 
 const attack0 : StringName = &"attack0"

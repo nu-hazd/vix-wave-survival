@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://cqsw23huvl7qb"]
 
-[ext_resource type="PackedScene" uid="uid://ka8un65ktlfs" path="res://entity/entity.tscn" id="1_8e3um"]
+[ext_resource type="PackedScene" uid="uid://2xu365g3h5gv" path="res://entity/entity.tscn" id="1_8e3um"]
+[ext_resource type="Script" uid="uid://c1erh4wlj2ch6" path="res://entity/vix/vix.gd" id="2_dmy6b"]
 [ext_resource type="PackedScene" uid="uid://dsjqsiycj4442" path="res://entity/weapons/katana.tscn" id="3_xv7w4"]
 [ext_resource type="Script" uid="uid://cooq3k1wb356u" path="res://entity/vix/vixController.gd" id="5_ntvab"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://6ww1x8jp4koa" path="res://entity/resources/defaultMovement.tres" id="5_rdmia"]
 [ext_resource type="Texture2D" uid="uid://u6xp27qvab60" path="res://assets/visual/sprites/Red/idle.png" id="5_xv7w4"]
-[ext_resource type="Script" uid="uid://c0jdjshgu1ydc" path="res://entity/states/roll.gd" id="6_rdmia"]
 [ext_resource type="Texture2D" uid="uid://dtxarqcty8lrg" path="res://assets/visual/sprites/Red/walk.png" id="6_xv7w4"]
 [ext_resource type="AnimationLibrary" uid="uid://cp0glndy1n1tw" path="res://entity/resources/movement.res" id="8_dmy6b"]
 
@@ -612,10 +612,12 @@ _data = {
 font_size = 8
 
 [node name="Vix" unique_id=1129406718 instance=ExtResource("1_8e3um")]
-collision_layer = 16
+collision_layer = 4
 collision_mask = 16
+script = ExtResource("2_dmy6b")
 
 [node name="camera" type="Camera2D" parent="." index="0" unique_id=1646983823]
+enabled = false
 zoom = Vector2(3, 3)
 
 [node name="collision" parent="." index="1" unique_id=1076632405]
@@ -645,15 +647,12 @@ parameters/roll/blend_position = Vector2(-0.07251263, 0.07317066)
 libraries/ = SubResource("AnimationLibrary_52xb4")
 libraries/movement = ExtResource("8_dmy6b")
 
-[node name="roll" parent="coordinator/movement/states" parent_id_path=PackedInt32Array(858496578) index="2" unique_id=1042254892]
-script = ExtResource("6_rdmia")
-
-[node name="controller" parent="." index="4" unique_id=1704558169]
-script = ExtResource("5_ntvab")
-
-[node name="stats" parent="." index="5" unique_id=205009982]
+[node name="stats" parent="." index="4" unique_id=205009982]
 vigor = 40
 dexterity = 37
+
+[node name="controller" parent="." index="5" unique_id=1623090921]
+script = ExtResource("5_ntvab")
 
 [node name="Label" parent="CanvasLayer" parent_id_path=PackedInt32Array(779868505) index="0" unique_id=689017408]
 offset_left = -32.0
@@ -662,5 +661,3 @@ offset_right = 8.0
 offset_bottom = -15.0
 text = "sda"
 label_settings = SubResource("LabelSettings_g2k83")
-
-z

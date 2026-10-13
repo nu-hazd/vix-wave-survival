@@ -7,12 +7,14 @@ var directionLocked : bool = false
 var movementMultipliers : Dictionary[StringName,float] = {}
 var inputDirection : Vector2 = Vector2.ZERO
 var rollCooldown : int = 0
-func setup(ent : Entity, weapon : Weapon ) -> void:
+var weapon : Weapon
+func setup(ent : Entity, wpn : Weapon ) -> void:
 	self.entity = ent
 	for movementState in $states.get_children() as Array[MovementState]:
 		movementState.entity = ent
 		movementState.animHandler = anim_hanlder
 		movementState.movementComponent = self
+	weapon = wpn
 	weapon.attackStarted.connect(lockDirection)
 	weapon.attackFinished.connect(unlockDirection)
 	super.ready()
@@ -24,7 +26,7 @@ func process(delta) -> void:
 			if not is_zero_approx(lastDir.x):
 				entity.sprite.scale.x = sign(lastDir.x)
 		currentState.updateAnimHanlder()
-		entity.coordinator.weapon.rotation = lastDir.angle()
+		weapon.rotation = lastDir.angle()
 	rollCooldown = max(0, rollCooldown-1)
 	super.process(delta)
 func push(force : float, dir : Vector2):
