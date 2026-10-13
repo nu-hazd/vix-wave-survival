@@ -617,7 +617,6 @@ collision_mask = 16
 script = ExtResource("2_dmy6b")
 
 [node name="camera" type="Camera2D" parent="." index="0" unique_id=1646983823]
-enabled = false
 zoom = Vector2(3, 3)
 
 [node name="collision" parent="." index="1" unique_id=1076632405]
