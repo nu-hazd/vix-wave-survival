@@ -94,7 +94,9 @@ func unblock() -> void:
 			countFrames = true
 			frameCounter = guardDownPenalty
 
-func nextState():
+func isGuarding() -> bool:
+	return state == STATES.PARRY or state == STATES.BLOCK
+func nextState(): 
 	match state:
 		STATES.OFF:
 			setState(STATES.STANDBY)

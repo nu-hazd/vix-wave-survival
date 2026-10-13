@@ -31,17 +31,28 @@ func directionChanged(newDirection: Vector2) -> void:
 func actionRequested(id : StringName) -> void:
 	match id:
 		ControllerComponent.attack0:
-			weapon.use(attack0ID)
+			if canAttack():	
+				weapon.use(attack0ID)
 		ControllerComponent.attack1:
-			weapon.use(attack1ID)
+			if canAttack():	
+				weapon.use(attack1ID)
 		ControllerComponent.block:
-			guard.block()
+			if canBlock():
+				guard.block()
 		ControllerComponent.unblock:
 			guard.unblock()
 		ControllerComponent.dodge:
-			movement.requestRoll(movement.inputDirection)
+			if canDodge():
+				if guard.isGuarding():
+					guard.unblock()
+				movement.requestRoll(movement.inputDirection)
 
-
+func canAttack() -> bool:
+	return weapon.canUse() and not guard.isGuarding() and movement.getCurrentStateName() in ["move", "idle"]
+func canBlock() -> bool:
+	return not weapon.isAttacking() and movement.getCurrentStateName() in ["move", "idle", "push"]
+func canDodge() -> bool:
+	return not weapon.isAttacking() and movement.getCurrentStateName() in ["idle","move"]
 func _physics_process(delta: float) -> void:
 	movement.process(delta)
 

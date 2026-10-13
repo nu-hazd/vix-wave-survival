@@ -90,9 +90,22 @@ func _physics_process(_delta: float) -> void:
 				if disengageCounter <= 0:
 					enterApproach()
 			else:
+				determineFightAction()
 				print("FIGHT")
 				setDirection(Vector2.ZERO)
-				
+	
+func determineFightAction() -> void:
+	match fightStyle:
+		FIGHT_STYLE.OFFENSIVE:
+			pass
+			#pathfinder.target_position = vixReference.global_position
+					#pathfindCounter = pathfindUpdateTime
+					#var nextPosition := pathfinder.get_next_path_position()
+					#if pathfinder.is_target_reachable():
+						#setDirection(enemy.global_position.direction_to(nextPosition))
+					#else:
+						#enterIdle()
+
 func _on_fight_body_entered(body: Node2D) -> void:
 	if body is  Vix:
 		vixInFight = true
