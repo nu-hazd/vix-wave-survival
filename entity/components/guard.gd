@@ -3,9 +3,8 @@ class_name GuardComponent extends Area2D
 var health : HealthComponent
 var stats : EntityStatsComponent
 
-signal guardBroken
-signal attackBlocked
-signal attackParried
+signal guardBroken(duration : int)
+signal push(dur : int, dir : Vector2)
 
 signal addMovementMultiplier(n : StringName, factor : float)
 signal removeMovementMultiplier(n : StringName)
@@ -71,15 +70,15 @@ func getState() -> STATES:
 	return state
 func blockAttack( hitbox : WeaponHitbox) -> void:
 	increaseCurrentGuard(hitbox.currentAttack.guardDamage)
-	attackBlocked.emit()
-	#TODO: push logic
+	push.emit(-(self.global_position.direction_to(hitbox.global_position)), max(10, hitbox.currentAttack.knockback - stats.vigor) )
+
 func increaseCurrentGuard(amount : int ) -> void:
 	currentGuard = min(maxGuard, currentGuard + amount)
 	if currentGuard == maxGuard:
 		breakGuard()
 func breakGuard() -> void:
 	setState(STATES.BROKEN)
-	guardBroken.emit()
+	guardBroken.emit(guardBreakDuration)
 
 func block() -> void:
 	if state == STATES.STANDBY:
@@ -131,7 +130,7 @@ func recieveAttack(hitbox : WeaponHitbox) -> void:
 	hitbox.interactedGuards.append(self)
 func parryAttack(hitbox : WeaponHitbox) -> void:
 	hitbox.parried.emit(stats, hitbox.currentAttack)
-	attackParried.emit()
+	push.emit(-(self.global_position.direction_to(hitbox.global_position)), max(10, (hitbox.currentAttack.knockback / 2.0) ) - stats.vigor)
 	succesfulParry = true
 
 func weaponParried(opposingEntityStats : EntityStatsComponent, attackInfo : AttackData) -> void:

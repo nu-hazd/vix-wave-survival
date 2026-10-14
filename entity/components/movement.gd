@@ -2,12 +2,15 @@ class_name MovementComponent extends StateMachine
 var entity : Entity
 @onready var anim_hanlder: AnimationTree = $animHanlder
 @onready var rollState : RollState = $states/roll
+@onready var push: PushState = $states/push
+
 var lastDir : Vector2 = Vector2.RIGHT 
 var directionLocked : bool = false
 var movementMultipliers : Dictionary[StringName,float] = {}
 var inputDirection : Vector2 = Vector2.ZERO
 var rollCooldown : int = 0
 var weapon : Weapon
+
 func setup(ent : Entity, wpn : Weapon ) -> void:
 	self.entity = ent
 	for movementState in $states.get_children() as Array[MovementState]:
@@ -29,9 +32,9 @@ func process(delta) -> void:
 		weapon.rotation = lastDir.angle()
 	rollCooldown = max(0, rollCooldown-1)
 	super.process(delta)
-func push(force : float, dir : Vector2):
-	print(force)
-	print(dir)
+func beginPush(dir : Vector2, dur : int) -> void:
+	push.begin(dir,dur)
+	setCurrentState(push)
 func lockDirection(_s : StringName) -> void:
 	directionLocked = true
 func unlockDirection(_s : StringName) -> void:
@@ -48,6 +51,10 @@ func requestRoll(direction: Vector2) -> bool:
 	rollCooldown = rollState.baseRollDuration*3
 	return true
 
+func setStunState() -> void:
+	pass
+func setDeathState() -> void:
+	setCurrentState($states/death)
 func setMovementMultiplier(id : StringName, val : float) -> void:
 	movementMultipliers[id] = val
 func removeMovementMultiplier(id : StringName) -> void:

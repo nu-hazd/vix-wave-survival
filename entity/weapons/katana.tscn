@@ -4,8 +4,36 @@
 [ext_resource type="Script" uid="uid://ds4eswelrffmp" path="res://entity/weapons/katana.gd" id="2_miw4x"]
 [ext_resource type="PackedScene" uid="uid://cx48dqe5d7aut" path="res://entity/weapons/abstract/hitbox.tscn" id="3_c1t6h"]
 [ext_resource type="Script" uid="uid://c8giwvbdsdva0" path="res://entity/weapons/abstract/attackData.gd" id="3_vd3d6"]
-[ext_resource type="Resource" uid="uid://c6ollk5wqrfqc" path="res://entity/weapons/attacks/katanaSwingLight.tres" id="4_qg767"]
 [ext_resource type="Script" uid="uid://b0npys624bfl7" path="res://entity/weapons/abstract/attackPhase.gd" id="5_vd3d6"]
+
+[sub_resource type="Resource" id="Resource_tln8e"]
+script = ExtResource("5_vd3d6")
+animationName = &"swingActive"
+durationTicks = 20
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_85a54"]
+script = ExtResource("5_vd3d6")
+animationName = &"swingRecovery"
+durationTicks = 5
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_oaomi"]
+script = ExtResource("5_vd3d6")
+animationName = &"swingStart"
+durationTicks = 30
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_c1t6h"]
+script = ExtResource("3_vd3d6")
+id = &"katanaSwingLight"
+physicalDamage = 5
+guardDamage = 5
+knockback = 25
+startup = SubResource("Resource_oaomi")
+active = SubResource("Resource_tln8e")
+recovery = SubResource("Resource_85a54")
+metadata/_custom_type_script = "uid://c8giwvbdsdva0"
 
 [sub_resource type="Resource" id="Resource_vd3d6"]
 script = ExtResource("5_vd3d6")
@@ -218,7 +246,7 @@ _data = {
 script = ExtResource("2_miw4x")
 hitbox = NodePath("pivot/bladeHitbox")
 hitboxDisplay = NodePath("pivot/blade")
-attackChain0 = Array[ExtResource("3_vd3d6")]([ExtResource("4_qg767")])
+attackChain0 = Array[ExtResource("3_vd3d6")]([SubResource("Resource_c1t6h")])
 attackChain1 = Array[ExtResource("3_vd3d6")]([SubResource("Resource_25edi")])
 
 [node name="pivot" type="Node2D" parent="." index="0" unique_id=482610853]

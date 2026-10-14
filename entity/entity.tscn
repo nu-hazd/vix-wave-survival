@@ -11,6 +11,8 @@
 [ext_resource type="Script" uid="uid://c0jdjshgu1ydc" path="res://entity/states/roll.gd" id="8_8vg6i"]
 [ext_resource type="Script" uid="uid://ega8kmwgcsj5" path="res://entity/states/movementState.gd" id="8_g2k83"]
 [ext_resource type="Script" uid="uid://0ax1o1tb8h5e" path="res://entity/components/health.gd" id="8_whxwk"]
+[ext_resource type="Script" uid="uid://b00l0dpkc668s" path="res://entity/states/death.gd" id="10_f6k7f"]
+[ext_resource type="Script" uid="uid://dsqldxu5dgcej" path="res://entity/states/push.gd" id="11_psl4n"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_g2k83"]
 font_size = 32
@@ -21,10 +23,12 @@ script/source = "extends Label
 
 func _process(_delta: float) -> void:
 	text = \"\"\"
+			State: %s
 			Health: %s
 			Guard: %s
 			Guard State: %s 
-	\"\"\" % [ $\"../../coordinator/health\".health,
+	\"\"\" % [ $\"../../coordinator/movement\".getCurrentStateName(),
+			$\"../../coordinator/health\".health,
 			$\"../../coordinator/guard\".currentGuard,
 			$\"../../coordinator/guard\".state
 			]
@@ -75,6 +79,12 @@ script = ExtResource("8_8vg6i")
 
 [node name="stun" type="Node" parent="coordinator/movement/states" unique_id=281262726]
 script = ExtResource("8_g2k83")
+
+[node name="death" type="Node" parent="coordinator/movement/states" unique_id=617858435]
+script = ExtResource("10_f6k7f")
+
+[node name="push" type="Node" parent="coordinator/movement/states" unique_id=1562601620]
+script = ExtResource("11_psl4n")
 
 [node name="stats" type="Node" parent="." unique_id=205009982]
 script = ExtResource("3_v200u")

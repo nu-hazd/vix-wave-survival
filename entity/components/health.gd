@@ -21,7 +21,7 @@ func setHealth(newHealth : int) -> void:
 		healthChanged.emit(prevHealth, newHealth)
 func _physics_process(_delta: float) -> void:
 	invincibilityFrames -= 1
-	if invincibilityFrames == 0:
+	if invincibilityFrames <= 0:
 		set_physics_process(false)
 func takeDamage(damageAmount : int) -> void:
 	if invincibilityFrames > 0:

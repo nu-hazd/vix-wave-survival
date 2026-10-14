@@ -5,7 +5,7 @@ class_name Coordinator extends Node2D
 @export var movement : MovementComponent
 @export var health : HealthComponent
 @export var weapon : Weapon
-
+signal entityDied
 func _ready() -> void:
 	set_physics_process(false)
 func start(ent : Entity) -> void:
@@ -15,6 +15,8 @@ func start(ent : Entity) -> void:
 	health.setup(ent.stats)
 	weapon.setup(weaponHitboxLayer, ent.stats)
 	guard.setup(guardMask, ent.stats, health)
+	guard.push.connect(movement.beginPush)
+	health.dead.connect(entityDead)
 	weapon.hitbox.parried.connect(guard.weaponParried)
 	weapon.addMovementMultiplier.connect(applyMovementMultiplier)
 	weapon.removeMovementMultiplier.connect(removeMovementMultiplier)
@@ -57,6 +59,13 @@ func canDodge() -> bool:
 func _physics_process(delta: float) -> void:
 	movement.process(delta)
 
+func entityDead() -> void:
+	weapon.cancel()
+	guard.unblock()
+	guard.monitoring = false
+	guard.monitorable = false
+	movement.setDeathState()
+	entityDied.emit()
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []
 	var hasWeapon := false
