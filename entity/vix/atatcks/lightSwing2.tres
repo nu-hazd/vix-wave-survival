@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="AttackData" format=3 uid="uid://misrmw61r3x3"]
+
+[ext_resource type="Script" uid="uid://b0npys624bfl7" path="res://entity/weapons/abstract/attackPhase.gd" id="1_xmkk7"]
+[ext_resource type="Script" uid="uid://c8giwvbdsdva0" path="res://entity/weapons/abstract/attackData.gd" id="2_gqn2l"]
+
+[sub_resource type="Resource" id="Resource_xmkk7"]
+script = ExtResource("1_xmkk7")
+animationName = &"light2Active"
+durationTicks = 20
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_gqn2l"]
+script = ExtResource("1_xmkk7")
+animationName = &"light2Recovery"
+durationTicks = 30
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_tkoye"]
+script = ExtResource("1_xmkk7")
+animationName = &"light2Startup"
+durationTicks = 30
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[resource]
+script = ExtResource("2_gqn2l")
+id = &"vixSwing1"
+physicalDamage = 8
+guardDamage = 3
+knockback = 8
+startup = SubResource("Resource_tkoye")
+active = SubResource("Resource_xmkk7")
+recovery = SubResource("Resource_gqn2l")
+movementMultiplier = 0.8
+metadata/_custom_type_script = "uid://c8giwvbdsdva0"

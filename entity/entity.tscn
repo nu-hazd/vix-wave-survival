@@ -21,12 +21,12 @@ script/source = "extends Label
 
 func _process(_delta: float) -> void:
 	text = \"\"\"
-			Last dir: %s
-			Move dir: %s
-			Penalty: %s
-	\"\"\" % [ $\"../../coordinator/movement\".lastDir, 
-			$\"../..\".velocity.normalized(),
-			$\"../../coordinator/movement\".getCurrentMultiplier()
+			Health: %s
+			Guard: %s
+			Guard State: %s 
+	\"\"\" % [ $\"../../coordinator/health\".health,
+			$\"../../coordinator/guard\".currentGuard,
+			$\"../../coordinator/guard\".state
 			]
 "
 

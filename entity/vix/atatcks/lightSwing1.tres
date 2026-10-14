@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="AttackData" format=3 uid="uid://csnutlna160ht"]
+
+[ext_resource type="Script" uid="uid://b0npys624bfl7" path="res://entity/weapons/abstract/attackPhase.gd" id="1_od21b"]
+[ext_resource type="Script" uid="uid://c8giwvbdsdva0" path="res://entity/weapons/abstract/attackData.gd" id="2_jl3qn"]
+
+[sub_resource type="Resource" id="Resource_od21b"]
+script = ExtResource("1_od21b")
+animationName = &"light1Active"
+durationTicks = 10
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_jl3qn"]
+script = ExtResource("1_od21b")
+animationName = &"light1Recovery"
+durationTicks = 3
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_jxoy6"]
+script = ExtResource("1_od21b")
+animationName = &"light1Startup"
+durationTicks = 2
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[resource]
+script = ExtResource("2_jl3qn")
+id = &"vixSwing1"
+physicalDamage = 5
+guardDamage = 1
+knockback = 3
+startup = SubResource("Resource_jxoy6")
+active = SubResource("Resource_od21b")
+recovery = SubResource("Resource_jl3qn")
+movementMultiplier = 0.3
+metadata/_custom_type_script = "uid://c8giwvbdsdva0"

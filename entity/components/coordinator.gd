@@ -1,20 +1,21 @@
+@tool
 class_name Coordinator extends Node2D
 
 @export var guard : GuardComponent
 @export var movement : MovementComponent
 @export var health : HealthComponent
 @export var weapon : Weapon
-@export var attack0ID : StringName = "katanaSwingLight"
-@export var attack1ID : StringName = "other"
+
 func _ready() -> void:
 	set_physics_process(false)
 func start(ent : Entity) -> void:
 	var guardMask : int = 1 if (ent is Vix) else 2
 	var weaponHitboxLayer : int = 1 if(ent is Enemy) else 2
 	movement.setup(ent, weapon)
-	guard.setup(guardMask, ent.stats, health)
 	health.setup(ent.stats)
 	weapon.setup(weaponHitboxLayer, ent.stats)
+	guard.setup(guardMask, ent.stats, health)
+	weapon.hitbox.parried.connect(guard.weaponParried)
 	weapon.addMovementMultiplier.connect(applyMovementMultiplier)
 	weapon.removeMovementMultiplier.connect(removeMovementMultiplier)
 	guard.addMovementMultiplier.connect(applyMovementMultiplier)
@@ -31,11 +32,11 @@ func directionChanged(newDirection: Vector2) -> void:
 func actionRequested(id : StringName) -> void:
 	match id:
 		ControllerComponent.attack0:
-			if canAttack():	
-				weapon.use(attack0ID)
+			if canAttack(id):	
+				weapon.use(id)
 		ControllerComponent.attack1:
-			if canAttack():	
-				weapon.use(attack1ID)
+			if canAttack(id):	
+				weapon.use(id)
 		ControllerComponent.block:
 			if canBlock():
 				guard.block()
@@ -47,8 +48,8 @@ func actionRequested(id : StringName) -> void:
 					guard.unblock()
 				movement.requestRoll(movement.inputDirection)
 
-func canAttack() -> bool:
-	return weapon.canUse() and not guard.isGuarding() and movement.getCurrentStateName() in ["move", "idle"]
+func canAttack(id : StringName) -> bool:
+	return weapon.canUse(id) and not guard.isGuarding() and movement.getCurrentStateName() in ["move", "idle"]
 func canBlock() -> bool:
 	return not weapon.isAttacking() and movement.getCurrentStateName() in ["move", "idle", "push"]
 func canDodge() -> bool:

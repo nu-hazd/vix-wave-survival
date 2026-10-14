@@ -70,11 +70,13 @@ func setState(newState : STATES) -> void:
 func getState() -> STATES:
 	return state
 func blockAttack( hitbox : WeaponHitbox) -> void:
-	currentGuard = min(maxGuard, currentGuard + hitbox.currentAttack.guardDamage)
-	if currentGuard == maxGuard:
-		breakGuard()
+	increaseCurrentGuard(hitbox.currentAttack.guardDamage)
 	attackBlocked.emit()
 	#TODO: push logic
+func increaseCurrentGuard(amount : int ) -> void:
+	currentGuard = min(maxGuard, currentGuard + amount)
+	if currentGuard == maxGuard:
+		breakGuard()
 func breakGuard() -> void:
 	setState(STATES.BROKEN)
 	guardBroken.emit()
@@ -128,10 +130,15 @@ func recieveAttack(hitbox : WeaponHitbox) -> void:
 				parryAttack(hitbox)
 	hitbox.interactedGuards.append(self)
 func parryAttack(hitbox : WeaponHitbox) -> void:
-	hitbox.parried.emit(stats)
+	hitbox.parried.emit(stats, hitbox.currentAttack)
 	attackParried.emit()
 	succesfulParry = true
- 
+
+func weaponParried(opposingEntityStats : EntityStatsComponent, attackInfo : AttackData) -> void:
+	increaseCurrentGuard(
+		int(attackInfo.guardDamage / 2.0
+		* (1.0 + opposingEntityStats.flow / 50.0)))
+
 func _on_area_entered(area: Area2D) -> void:
 	if area is WeaponHitbox:
 		hitboxesInGuard.append(area)

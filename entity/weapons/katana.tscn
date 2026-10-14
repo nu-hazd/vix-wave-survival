@@ -5,7 +5,35 @@
 [ext_resource type="PackedScene" uid="uid://cx48dqe5d7aut" path="res://entity/weapons/abstract/hitbox.tscn" id="3_c1t6h"]
 [ext_resource type="Script" uid="uid://c8giwvbdsdva0" path="res://entity/weapons/abstract/attackData.gd" id="3_vd3d6"]
 [ext_resource type="Resource" uid="uid://c6ollk5wqrfqc" path="res://entity/weapons/attacks/katanaSwingLight.tres" id="4_qg767"]
-[ext_resource type="Resource" uid="uid://dkcja5lchxqe2" path="res://entity/weapons/attacks/katanaThrust.tres" id="5_rr4gu"]
+[ext_resource type="Script" uid="uid://b0npys624bfl7" path="res://entity/weapons/abstract/attackPhase.gd" id="5_vd3d6"]
+
+[sub_resource type="Resource" id="Resource_vd3d6"]
+script = ExtResource("5_vd3d6")
+animationName = &"swingActive"
+durationTicks = 60
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_qg767"]
+script = ExtResource("5_vd3d6")
+animationName = &"swingRecovery"
+durationTicks = 40
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_rr4gu"]
+script = ExtResource("5_vd3d6")
+animationName = &"swingStart"
+durationTicks = 60
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_25edi"]
+script = ExtResource("3_vd3d6")
+id = &"katanaSwingHeavy"
+physicalDamage = 5
+guardDamage = 5
+startup = SubResource("Resource_rr4gu")
+active = SubResource("Resource_vd3d6")
+recovery = SubResource("Resource_qg767")
+metadata/_custom_type_script = "uid://c8giwvbdsdva0"
 
 [sub_resource type="Animation" id="Animation_miw4x"]
 length = 0.001
@@ -186,10 +214,12 @@ _data = {
 &"swingStart": SubResource("Animation_itapa")
 }
 
-[node name="katana" unique_id=78922822 node_paths=PackedStringArray("hitbox") instance=ExtResource("1_miw4x")]
+[node name="katana" unique_id=78922822 node_paths=PackedStringArray("hitbox", "hitboxDisplay") instance=ExtResource("1_miw4x")]
 script = ExtResource("2_miw4x")
 hitbox = NodePath("pivot/bladeHitbox")
-attacks = Array[ExtResource("3_vd3d6")]([ExtResource("4_qg767"), ExtResource("5_rr4gu")])
+hitboxDisplay = NodePath("pivot/blade")
+attackChain0 = Array[ExtResource("3_vd3d6")]([ExtResource("4_qg767")])
+attackChain1 = Array[ExtResource("3_vd3d6")]([SubResource("Resource_25edi")])
 
 [node name="pivot" type="Node2D" parent="." index="0" unique_id=482610853]
 modulate = Color(1, 1, 1, 0)

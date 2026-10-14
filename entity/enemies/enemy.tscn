@@ -26,6 +26,7 @@ fightStyle = 0
 path_desired_distance = 8.0
 target_desired_distance = 8.0
 path_postprocessing = 1
+debug_enabled = true
 
 [node name="fight" type="Area2D" parent="controller" index="1" unique_id=1234787158]
 collision_layer = 0

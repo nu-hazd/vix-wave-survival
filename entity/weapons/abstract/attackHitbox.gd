@@ -1,7 +1,7 @@
 class_name WeaponHitbox
 extends Area2D
 @warning_ignore("unused_signal")
-signal parried(stats : EntityStatsComponent)
+signal parried(stats : EntityStatsComponent, atk : AttackData)
 var currentAttack: AttackData
 
 var active: bool = false

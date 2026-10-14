@@ -16,4 +16,3 @@ extends Resource
 
 @export_group("Movement")
 @export var movementMultiplier : float = 0.5
-@export var lungeForce : int = 0

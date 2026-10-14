@@ -1,9 +1,7 @@
 [gd_scene format=3 uid="uid://bkrds4fucfmo4"]
 
 [ext_resource type="PackedScene" uid="uid://cqsw23huvl7qb" path="res://entity/vix/vix.tscn" id="1_w1dqn"]
-[ext_resource type="PackedScene" uid="uid://cik33v4vb6t3g" path="res://entity/enemies/otherOther.tscn" id="2_17t65"]
 [ext_resource type="PackedScene" uid="uid://cjhwkkx3l35pn" path="res://entity/enemies/temp.tscn" id="2_r2iyo"]
-[ext_resource type="PackedScene" uid="uid://q0hrpbyxttyl" path="res://entity/enemies/other.tscn" id="4_ebw7u"]
 
 [sub_resource type="GDScript" id="GDScript_qgwgs"]
 script/source = "extends Node2D
@@ -60,11 +58,5 @@ enabled = false
 
 [node name="Node2D" type="Node2D" parent="." unique_id=774249702]
 
-[node name="enemy" parent="Node2D" unique_id=600409069 instance=ExtResource("2_17t65")]
-position = Vector2(672, 104)
-
-[node name="enemy2" parent="Node2D" unique_id=1999045940 instance=ExtResource("2_r2iyo")]
-position = Vector2(200, 368)
-
-[node name="enemy3" parent="Node2D" unique_id=1865465170 instance=ExtResource("4_ebw7u")]
-position = Vector2(392, 152)
+[node name="enemy" parent="Node2D" unique_id=218610377 instance=ExtResource("2_r2iyo")]
+position = Vector2(360, 152)

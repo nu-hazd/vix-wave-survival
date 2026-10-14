@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://2xu365g3h5gv" path="res://entity/entity.tscn" id="1_8e3um"]
 [ext_resource type="Script" uid="uid://c1erh4wlj2ch6" path="res://entity/vix/vix.gd" id="2_dmy6b"]
-[ext_resource type="PackedScene" uid="uid://dsjqsiycj4442" path="res://entity/weapons/katana.tscn" id="3_xv7w4"]
+[ext_resource type="PackedScene" uid="uid://bns7s2mb2dd76" path="res://entity/vix/vixWeapon.tscn" id="3_dmy6b"]
 [ext_resource type="Script" uid="uid://cooq3k1wb356u" path="res://entity/vix/vixController.gd" id="5_ntvab"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://6ww1x8jp4koa" path="res://entity/resources/defaultMovement.tres" id="5_rdmia"]
 [ext_resource type="Texture2D" uid="uid://u6xp27qvab60" path="res://assets/visual/sprites/Red/idle.png" id="5_xv7w4"]
@@ -624,12 +624,12 @@ position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_qgwgs")
 
 [node name="coordinator" parent="." index="3" unique_id=1873915501 node_paths=PackedStringArray("weapon")]
-weapon = NodePath("katana")
+weapon = NodePath("vixWeapon")
 
 [node name="guard" parent="coordinator" index="0" unique_id=1099355642]
 scale = Vector2(0.48962384, 0.7117015)
 
-[node name="katana" parent="coordinator" index="1" unique_id=78922822 instance=ExtResource("3_xv7w4")]
+[node name="vixWeapon" parent="coordinator" index="1" unique_id=78922822 instance=ExtResource("3_dmy6b")]
 
 [node name="animHanlder" parent="coordinator/movement" parent_id_path=PackedInt32Array(2075889983) index="0" unique_id=230060077]
 root_node = NodePath("../../..")

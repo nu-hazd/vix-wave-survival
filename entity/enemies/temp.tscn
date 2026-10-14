@@ -8,10 +8,10 @@
 radius = 4.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qgwgs"]
-radius = 22.090721
+radius = 28.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fvs06"]
-radius = 80.09994
+radius = 114.01754
 
 [node name="enemy" unique_id=1129406718 instance=ExtResource("1_ls37d")]
 
@@ -37,7 +37,9 @@ findPlayerChance = 3
 movementInterval = 200
 forgetPlayerTime = 100
 wanderRadius = 200
+fightSkill = 99
 disengageTime = 30
+fightStyle = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="controller/fight" parent_id_path=PackedInt32Array(1234787158) index="0" unique_id=1582186410]
 shape = SubResource("CircleShape2D_qgwgs")
@@ -46,4 +48,8 @@ shape = SubResource("CircleShape2D_qgwgs")
 shape = SubResource("CircleShape2D_fvs06")
 
 [node name="CanvasLayer" parent="." index="5" unique_id=779868505]
-visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
