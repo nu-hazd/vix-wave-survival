@@ -1,0 +1,264 @@
+[gd_scene format=3 uid="uid://mdhts4ok2t3o"]
+
+[ext_resource type="Script" uid="uid://bslwv05y0ys6t" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://cy7l8s13e1nvs" path="res://survival/waveSurvival.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://f0pcwksu7g6d" path="res://shrine/shrine.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://cqsw23huvl7qb" path="res://entity/vix/vix.tscn" id="3_1bvp3"]
+[ext_resource type="Script" uid="uid://bhs3mb4xq82s4" path="res://core/scripts/menu.gd" id="5_lquwl"]
+[ext_resource type="FontFile" uid="uid://bq7t41u0h74he" path="res://assets/visual/RasterForgeRegular-JpBgm.ttf" id="6_7mycd"]
+[ext_resource type="AudioStream" uid="uid://bflrsccv2bd1f" path="res://assets/music/survivalLoop.mp3" id="7_272bh"]
+[ext_resource type="StyleBox" uid="uid://bkba41g1who4b" path="res://buttonNormal.tres" id="7_kek77"]
+[ext_resource type="StyleBox" uid="uid://cdaqp17t1bkj1" path="res://buttonPressHover.tres" id="8_4c57u"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qgwgs"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qgwgs"]
+font = ExtResource("6_7mycd")
+font_size = 64
+font_color = Color(0.82612187, 0.2047329, 2.8878452e-07, 1)
+outline_size = 4
+outline_color = Color(0.33878148, 7.809214e-05, 0.33899453, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kek77"]
+font = ExtResource("6_7mycd")
+font_size = 64
+font_color = Color(0.7278787, 0.1710482, 0.72274756, 1)
+outline_size = 4
+outline_color = Color(0.33878148, 7.809214e-05, 0.33899453, 1)
+
+[sub_resource type="Animation" id="Animation_7mycd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("blackScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_272bh"]
+resource_name = "fadeIN"
+length = 2.0
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("blackScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5vw27"]
+resource_name = "fadeOUT"
+length = 2.0
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("blackScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5vw27"]
+_data = {
+&"RESET": SubResource("Animation_7mycd"),
+&"fadeIN": SubResource("Animation_272bh"),
+&"fadeOUT": SubResource("Animation_5vw27")
+}
+
+[node name="Main" type="Node" unique_id=785244649]
+script = ExtResource("1_0xm2m")
+vixScene = ExtResource("3_1bvp3")
+
+[node name="mode" type="Node2D" parent="." unique_id=2126198001]
+
+[node name="Shrine" parent="mode" unique_id=1229671632 instance=ExtResource("2_h2yge")]
+position = Vector2(-476, 24)
+
+[node name="WaveSurvival" parent="mode" unique_id=461571177 instance=ExtResource("2_0xm2m")]
+
+[node name="mainUI" type="CanvasLayer" parent="." unique_id=1488117992]
+
+[node name="ui" type="Control" parent="mainUI" unique_id=1110974986 node_paths=PackedStringArray("currentScreen")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_lquwl")
+currentScreen = NodePath("menu/main")
+
+[node name="menu" type="Control" parent="mainUI/ui" unique_id=787291469]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="bg" type="ColorRect" parent="mainUI/ui/menu" unique_id=548591394]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+
+[node name="main" type="Panel" parent="mainUI/ui/menu" unique_id=1208906739]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qgwgs")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="mainUI/ui/menu/main" unique_id=1581232722]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -520.0
+offset_top = -164.0
+offset_right = 520.0
+offset_bottom = 164.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="name" type="Label" parent="mainUI/ui/menu/main/VBoxContainer" unique_id=910702193]
+layout_mode = 2
+text = "VIX:"
+label_settings = SubResource("LabelSettings_qgwgs")
+horizontal_alignment = 1
+
+[node name="name2" type="Label" parent="mainUI/ui/menu/main/VBoxContainer" unique_id=1333044737]
+layout_mode = 2
+text = "Until Six"
+label_settings = SubResource("LabelSettings_kek77")
+horizontal_alignment = 1
+
+[node name="start" type="Button" parent="mainUI/ui/menu/main/VBoxContainer" unique_id=1271832893]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("6_7mycd")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("7_kek77")
+theme_override_styles/normal_mirrored = ExtResource("7_kek77")
+theme_override_styles/pressed = ExtResource("8_4c57u")
+theme_override_styles/pressed_mirrored = ExtResource("8_4c57u")
+theme_override_styles/hover = ExtResource("8_4c57u")
+theme_override_styles/hover_mirrored = ExtResource("8_4c57u")
+theme_override_styles/hover_pressed = ExtResource("8_4c57u")
+theme_override_styles/hover_pressed_mirrored = ExtResource("8_4c57u")
+text = "START"
+
+[node name="quit" type="Button" parent="mainUI/ui/menu/main/VBoxContainer" unique_id=210971178]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("6_7mycd")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("7_kek77")
+theme_override_styles/normal_mirrored = ExtResource("7_kek77")
+theme_override_styles/pressed = ExtResource("8_4c57u")
+theme_override_styles/pressed_mirrored = ExtResource("8_4c57u")
+theme_override_styles/hover = ExtResource("8_4c57u")
+theme_override_styles/hover_mirrored = ExtResource("8_4c57u")
+theme_override_styles/hover_pressed = ExtResource("8_4c57u")
+theme_override_styles/hover_pressed_mirrored = ExtResource("8_4c57u")
+text = "QUIT
+"
+
+[node name="pause" type="Control" parent="mainUI/ui" unique_id=1664962126]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="buttons" type="VBoxContainer" parent="mainUI/ui/pause" unique_id=725132617]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 584.0
+offset_top = 318.5
+offset_right = 656.0
+offset_bottom = 361.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="resume" type="Button" parent="mainUI/ui/pause/buttons" unique_id=2038754946]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_7mycd")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("7_kek77")
+theme_override_styles/normal_mirrored = ExtResource("7_kek77")
+theme_override_styles/pressed = ExtResource("8_4c57u")
+theme_override_styles/pressed_mirrored = ExtResource("8_4c57u")
+theme_override_styles/hover = ExtResource("8_4c57u")
+theme_override_styles/hover_mirrored = ExtResource("8_4c57u")
+theme_override_styles/hover_pressed = ExtResource("8_4c57u")
+theme_override_styles/hover_pressed_mirrored = ExtResource("8_4c57u")
+text = "RESUME
+"
+
+[node name="main" type="Button" parent="mainUI/ui/pause/buttons" unique_id=1872874401]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_7mycd")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("7_kek77")
+theme_override_styles/normal_mirrored = ExtResource("7_kek77")
+theme_override_styles/pressed = ExtResource("8_4c57u")
+theme_override_styles/pressed_mirrored = ExtResource("8_4c57u")
+theme_override_styles/hover = ExtResource("8_4c57u")
+theme_override_styles/hover_mirrored = ExtResource("8_4c57u")
+theme_override_styles/hover_pressed = ExtResource("8_4c57u")
+theme_override_styles/hover_pressed_mirrored = ExtResource("8_4c57u")
+text = "MENU"
+
+[node name="blackScreen" type="ColorRect" parent="mainUI/ui" unique_id=313435777]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="fade" type="AnimationPlayer" parent="mainUI/ui" unique_id=2109034357]
+libraries/ = SubResource("AnimationLibrary_5vw27")
+
+[node name="menuMusic" type="AudioStreamPlayer" parent="." unique_id=995600380]
+stream = ExtResource("7_272bh")
+
+[connection signal="pressed" from="mainUI/ui/menu/main/VBoxContainer/start" to="mainUI/ui" method="buttonPressed" binds= [&"start"]]
+[connection signal="pressed" from="mainUI/ui/menu/main/VBoxContainer/quit" to="mainUI/ui" method="buttonPressed" binds= [&"quit"]]
+[connection signal="pressed" from="mainUI/ui/pause/buttons/resume" to="mainUI/ui" method="buttonPressed" binds= [&"resume"]]
+[connection signal="pressed" from="mainUI/ui/pause/buttons/main" to="mainUI/ui" method="buttonPressed" binds= [&"menu"]]
