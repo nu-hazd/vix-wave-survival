@@ -1,0 +1,241 @@
+[gd_scene format=3 uid="uid://ckt07qmbln8j6"]
+
+[ext_resource type="PackedScene" uid="uid://kh4lkynx35yo" path="res://entity/weapons/abstract/weapon.tscn" id="1_d42bm"]
+[ext_resource type="Script" uid="uid://c8giwvbdsdva0" path="res://entity/weapons/abstract/attackData.gd" id="2_0t8u5"]
+[ext_resource type="Script" uid="uid://b0npys624bfl7" path="res://entity/weapons/abstract/attackPhase.gd" id="4_27u72"]
+[ext_resource type="PackedScene" uid="uid://cx48dqe5d7aut" path="res://entity/weapons/abstract/hitbox.tscn" id="5_2ueqe"]
+[ext_resource type="AudioStream" uid="uid://bpe253jv78xiy" path="res://assets/sfx/swing2.mp3" id="6_0t8u5"]
+[ext_resource type="AudioStream" uid="uid://biqeenjrrvlff" path="res://assets/sfx/swing.mp3" id="6_15i3q"]
+
+[sub_resource type="Resource" id="Resource_m6tfh"]
+script = ExtResource("4_27u72")
+animationName = &"swingActive"
+durationTicks = 10
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_nb77i"]
+script = ExtResource("4_27u72")
+animationName = &"swingRecovery"
+durationTicks = 40
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_oemsn"]
+script = ExtResource("4_27u72")
+animationName = &"swingStart"
+durationTicks = 30
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_e2ehk"]
+script = ExtResource("2_0t8u5")
+id = &"greatSwordLight"
+physicalDamage = 2
+guardDamage = 4
+knockback = 20
+startup = SubResource("Resource_oemsn")
+active = SubResource("Resource_m6tfh")
+recovery = SubResource("Resource_nb77i")
+metadata/_custom_type_script = "uid://c8giwvbdsdva0"
+
+[sub_resource type="Resource" id="Resource_d42bm"]
+script = ExtResource("4_27u72")
+animationName = &"swingActive"
+durationTicks = 10
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_0t8u5"]
+script = ExtResource("4_27u72")
+animationName = &"swingRecovery"
+durationTicks = 60
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_gw7id"]
+script = ExtResource("4_27u72")
+animationName = &"swingStart"
+durationTicks = 60
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_27u72"]
+script = ExtResource("2_0t8u5")
+id = &"greatSwordHeavy"
+physicalDamage = 6
+guardDamage = 1
+unblockable = true
+startup = SubResource("Resource_gw7id")
+active = SubResource("Resource_d42bm")
+recovery = SubResource("Resource_0t8u5")
+movementMultiplier = 0.2
+sfx = 1
+metadata/_custom_type_script = "uid://c8giwvbdsdva0"
+
+[sub_resource type="Animation" id="Animation_miw4x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0017613769]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pivot:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(6, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("pivot:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_c1t6h"]
+resource_name = "swingActive"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-2.2689280275926285, 2.2689280275926285]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pivot:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(6, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vd3d6"]
+resource_name = "swingRecovery"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_itapa"]
+resource_name = "swingStart"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -2.2689280275926285]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pivot:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(6, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("pivot:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c1t6h"]
+_data = {
+&"RESET": SubResource("Animation_miw4x"),
+&"swingActive": SubResource("Animation_c1t6h"),
+&"swingRecovery": SubResource("Animation_vd3d6"),
+&"swingStart": SubResource("Animation_itapa")
+}
+
+[node name="greatsword" unique_id=78922822 node_paths=PackedStringArray("hitbox", "hitboxDisplay") instance=ExtResource("1_d42bm")]
+hitbox = NodePath("pivot/bladeHitbox")
+hitboxDisplay = NodePath("pivot/blade")
+attackChain0 = Array[ExtResource("2_0t8u5")]([SubResource("Resource_e2ehk")])
+attackChain1 = Array[ExtResource("2_0t8u5")]([SubResource("Resource_27u72")])
+
+[node name="pivot" type="Node2D" parent="." index="0" unique_id=482610853]
+position = Vector2(6, 0)
+rotation = 0.0017613769
+scale = Vector2(2, 2)
+
+[node name="handle" type="Polygon2D" parent="pivot" index="0" unique_id=1552087633]
+position = Vector2(3.0070407, -0.005296537)
+color = Color(0.18629211, 0.085788645, 0, 1)
+polygon = PackedVector2Array(-5.9964676, 2.010565, -6.0035133, -1.9894286, 2.9964724, -2.0052812, 3.003518, 1.9947128)
+
+[node name="hilt" type="Polygon2D" parent="pivot" index="1" unique_id=839540243]
+position = Vector2(3.0070503, -1.3189856e-05)
+color = Color(0.2934735, 0.32709205, 0, 1)
+polygon = PackedVector2Array(3.0105639, 5.994706, 2.9894266, -6.005275, 5.989422, -6.0105586, 6.010559, 5.9894223)
+
+[node name="blade" type="Polygon2D" parent="pivot" index="2" unique_id=690550106]
+position = Vector2(5.005286, -1.0035344)
+color = Color(0.24840015, 0.24840018, 0.24840015, 1)
+polygon = PackedVector2Array(3.9964705, -2.0070424, 23.99644, -2.0422697, 35.00171, 0.9383503, 24.007008, 3.9577208, 4.007039, 3.992948)
+
+[node name="bladeHitbox" parent="pivot" index="3" unique_id=659864476 instance=ExtResource("5_2ueqe")]
+position = Vector2(3.0070503, -1.3189856e-05)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="pivot/bladeHitbox" index="0" unique_id=1639094337]
+polygon = PackedVector2Array(5.994706, -3.0105636, 25.994677, -3.0457911, 36.999947, -0.065170914, 26.005243, 2.9541993, 6.005275, 2.9894269)
+
+[node name="attacks" parent="." index="1" unique_id=640062531]
+libraries/ = SubResource("AnimationLibrary_c1t6h")
+
+[node name="0" parent="." index="2" unique_id=580696104]
+stream = ExtResource("6_0t8u5")
+
+[node name="1" parent="." index="3" unique_id=1373644285]
+stream = ExtResource("6_15i3q")
+volume_db = 8.0

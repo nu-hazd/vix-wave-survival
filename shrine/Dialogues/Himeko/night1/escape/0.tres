@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LinearDialogue" format=3 uid="uid://ccypld6kfyuqa"]
+
+[ext_resource type="Script" uid="uid://dcx5ehsbh8k12" path="res://core/DialogueSystem/Types/linearDialogue.gd" id="1_bswxf"]
+[ext_resource type="Resource" uid="uid://b6xkn2lvhpxme" path="res://shrine/Dialogues/Himeko/night1/escape/1.tres" id="1_qebak"]
+
+[resource]
+script = ExtResource("1_bswxf")
+nextDialogue = ExtResource("1_qebak")
+speaker = "Himeko"
+text = "We managed to escape...."
+metadata/_custom_type_script = "uid://dcx5ehsbh8k12"

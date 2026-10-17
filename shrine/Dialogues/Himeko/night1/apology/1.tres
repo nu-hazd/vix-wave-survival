@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EndingDialogue" format=3 uid="uid://8s8ue1ns4uwf"]
+
+[ext_resource type="Script" uid="uid://da8mpra3a1s88" path="res://core/DialogueSystem/Types/endingDialogue.gd" id="1_3ofc5"]
+
+[resource]
+script = ExtResource("1_3ofc5")
+speaker = "Himeko"
+text = "I just... did not want to spend another day in that... place."
+metadata/_custom_type_script = "uid://da8mpra3a1s88"

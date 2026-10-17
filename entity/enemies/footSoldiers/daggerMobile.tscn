@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://bftfci0ykg4cx"]
+
+[ext_resource type="PackedScene" uid="uid://jsn31avkyusm" path="res://entity/enemies/nonBossEnemy.tscn" id="1_01iuu"]
+[ext_resource type="Texture2D" uid="uid://d0ghqp7bvil45" path="res://assets/visual/sprites/Red/enemyIdle1.png" id="2_3l4jn"]
+[ext_resource type="PackedScene" uid="uid://dbvnjh122jx0w" path="res://entity/weapons/dagger.tscn" id="3_01iuu"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://bumugl8jjs8ox" path="res://entity/resources/enemyAnims/commonEnemy/enemy1tree.tres" id="4_s3cup"]
+[ext_resource type="AnimationLibrary" uid="uid://dsdxbce7dsxd7" path="res://entity/resources/enemy1anims.res" id="5_alwu0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_df4xn"]
+radius = 2.236068
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3l4jn"]
+radius = 19.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7gjwc"]
+radius = 91.00549
+
+[node name="enemy" unique_id=1129406718 instance=ExtResource("1_01iuu")]
+collision_mask = 144
+
+[node name="collision" parent="." index="0" unique_id=1076632405]
+shape = SubResource("CircleShape2D_df4xn")
+
+[node name="sprite" parent="." index="1" unique_id=399970410]
+modulate = Color(0.49411765, 0.10980392, 0.3764706, 1)
+texture = ExtResource("2_3l4jn")
+hframes = 2
+frame = 1
+
+[node name="coordinator" parent="." index="2" unique_id=1873915501 node_paths=PackedStringArray("weapon")]
+weapon = NodePath("dagger")
+
+[node name="dagger" parent="coordinator" index="0" unique_id=78922822 instance=ExtResource("3_01iuu")]
+
+[node name="animHanlder" parent="coordinator/movement" parent_id_path=PackedInt32Array(2075889983) index="0" unique_id=230060077]
+root_node = NodePath("../../..")
+tree_root = ExtResource("4_s3cup")
+anim_player = NodePath("../animPlayer")
+parameters/conditions/dead = false
+parameters/conditions/idle = false
+parameters/conditions/move = false
+parameters/conditions/roll = false
+parameters/idle/blend_position = Vector2(-0.0067453384, 1.0325203)
+parameters/move/blend_position = Vector2(0, 0)
+parameters/roll/blend_position = Vector2(0.0016863346, 0.98190045)
+
+[node name="animPlayer" parent="coordinator/movement" parent_id_path=PackedInt32Array(2075889983) index="1" unique_id=1881139134]
+libraries/enemy1anims = ExtResource("5_alwu0")
+
+[node name="stats" parent="." index="3" unique_id=205009982]
+dexterity = 20
+flow = 20
+
+[node name="controller" parent="." index="4" unique_id=1623090921]
+findPlayerChance = 20
+movementInterval = 30
+forgetPlayerTime = 120
+wanderRadius = 200
+fightSkill = 30
+disengageTime = 300
+attackOnePreference = 85
+fightStyle = 2
+
+[node name="CollisionShape2D" parent="controller/fight" parent_id_path=PackedInt32Array(1234787158) index="0" unique_id=1582186410]
+shape = SubResource("CircleShape2D_3l4jn")
+
+[node name="CollisionShape2D" parent="controller/aggro" parent_id_path=PackedInt32Array(916001271) index="0" unique_id=366078090]
+shape = SubResource("CircleShape2D_7gjwc")
+
+[node name="bars" parent="." index="5" unique_id=2003258560]
+offset_left = -19.0
+offset_top = -11.999999
+offset_right = 749.0
+offset_bottom = 56.0
+scale = Vector2(0.05, 0.05)

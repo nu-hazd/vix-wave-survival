@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Wave" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://survival/Waves/wave.gd" id="1_wave"]
+
+[resource]
+script = ExtResource("1_wave")
+spawns = Dictionary[StringName, int]({
+&"daggerMobile": 2,
+&"katanaOffensive": 2
+})

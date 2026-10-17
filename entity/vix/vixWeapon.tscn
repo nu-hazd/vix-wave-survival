@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://bns7s2mb2dd76"]
 
 [ext_resource type="PackedScene" uid="uid://kh4lkynx35yo" path="res://entity/weapons/abstract/weapon.tscn" id="1_oujcr"]
-[ext_resource type="Script" uid="uid://bcb038hqtel0j" path="res://entity/vix/vixWeapon.gd" id="2_6lrfp"]
 [ext_resource type="PackedScene" uid="uid://cx48dqe5d7aut" path="res://entity/weapons/abstract/hitbox.tscn" id="3_hgasl"]
 [ext_resource type="Script" uid="uid://c8giwvbdsdva0" path="res://entity/weapons/abstract/attackData.gd" id="3_xoflv"]
 [ext_resource type="Resource" uid="uid://mcsxa6kcbjil" path="res://entity/vix/atatcks/lightSwing0.tres" id="4_sdsg6"]
 [ext_resource type="Resource" uid="uid://csnutlna160ht" path="res://entity/vix/atatcks/lightSwing1.tres" id="5_ij0ss"]
 [ext_resource type="Resource" uid="uid://misrmw61r3x3" path="res://entity/vix/atatcks/lightSwing2.tres" id="6_xuryb"]
+[ext_resource type="Resource" uid="uid://ctg7em6hlfe1f" path="res://entity/vix/atatcks/heavyThurst0.tres" id="7_ij0ss"]
+[ext_resource type="AudioStream" uid="uid://biqeenjrrvlff" path="res://assets/sfx/swing.mp3" id="8_xuryb"]
+[ext_resource type="AudioStream" uid="uid://dq5cklnhohiig" path="res://assets/sfx/thrust.mp3" id="9_qr3yw"]
 
 [sub_resource type="Animation" id="Animation_hgasl"]
 length = 0.001
@@ -45,6 +47,126 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_c7i33"]
+resource_name = "heavy0Active"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(16, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_54qgr"]
+resource_name = "heavy0Recovery"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(16, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_4e1kx"]
+resource_name = "heavy0Startup"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(5, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
 }
 
 [sub_resource type="Animation" id="Animation_sdsg6"]
@@ -152,7 +274,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [1.5707963267948966, 1.7453292519943295]
+"values": [0.0, 1.7453292519943295]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -410,6 +532,9 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xoflv"]
 _data = {
 &"RESET": SubResource("Animation_hgasl"),
+&"heavy0Active": SubResource("Animation_c7i33"),
+&"heavy0Recovery": SubResource("Animation_54qgr"),
+&"heavy0Startup": SubResource("Animation_4e1kx"),
 &"light1Active": SubResource("Animation_sdsg6"),
 &"light1Recovery": SubResource("Animation_ij0ss"),
 &"light1Startup": SubResource("Animation_xuryb"),
@@ -422,10 +547,10 @@ _data = {
 }
 
 [node name="vixWeapon" unique_id=78922822 node_paths=PackedStringArray("hitbox", "hitboxDisplay") instance=ExtResource("1_oujcr")]
-script = ExtResource("2_6lrfp")
 hitbox = NodePath("pivot/Hitbox")
 hitboxDisplay = NodePath("pivot/blade")
-attackChain0 = Array[ExtResource("3_xoflv")]([ExtResource("4_sdsg6"), ExtResource("5_ij0ss"), ExtResource("6_xuryb")])
+attackChain0 = Array[ExtResource("3_xoflv")]([ExtResource("4_sdsg6"), ExtResource("5_ij0ss"), ExtResource("4_sdsg6"), ExtResource("5_ij0ss"), ExtResource("6_xuryb")])
+attackChain1 = Array[ExtResource("3_xoflv")]([ExtResource("7_ij0ss")])
 
 [node name="attacks" parent="." index="0" unique_id=640062531]
 libraries/ = SubResource("AnimationLibrary_xoflv")
@@ -449,3 +574,9 @@ polygon = PackedVector2Array(4, -3, 4, 3, 5, 2, 5, -2)
 [node name="blade" type="Polygon2D" parent="pivot" index="3" unique_id=818738135]
 color = Color(0.5409905, 0.5409905, 0.5409905, 1)
 polygon = PackedVector2Array(5, -1, 18, -1, 20, 0, 18, 1, 5, 1)
+
+[node name="0" parent="." index="2" unique_id=580696104]
+stream = ExtResource("8_xuryb")
+
+[node name="1" parent="." index="3" unique_id=1373644285]
+stream = ExtResource("9_qr3yw")

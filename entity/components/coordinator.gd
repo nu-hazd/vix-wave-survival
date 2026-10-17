@@ -15,7 +15,9 @@ func start(ent : Entity) -> void:
 	health.setup(ent.stats)
 	weapon.setup(weaponHitboxLayer, ent.stats)
 	guard.setup(guardMask, ent.stats, health)
+	guard.visible = true
 	guard.push.connect(movement.beginPush)
+	guard.guardBroken.connect(movement.beginStun)
 	health.dead.connect(entityDead)
 	weapon.hitbox.parried.connect(guard.weaponParried)
 	weapon.addMovementMultiplier.connect(applyMovementMultiplier)
@@ -58,14 +60,15 @@ func canDodge() -> bool:
 	return not weapon.isAttacking() and movement.getCurrentStateName() in ["idle","move"]
 func _physics_process(delta: float) -> void:
 	movement.process(delta)
-
 func entityDead() -> void:
+	self.set_physics_process(false)
 	weapon.cancel()
 	guard.unblock()
 	guard.monitoring = false
 	guard.monitorable = false
 	movement.setDeathState()
 	entityDied.emit()
+
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []
 	var hasWeapon := false
@@ -75,3 +78,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 	if not hasWeapon:
 		warnings.append("Coordinator requires a Weapon child.")
 	return warnings
+
+
+func _on_guard_guard_broken(duration: int) -> void:
+	weapon.cancel()

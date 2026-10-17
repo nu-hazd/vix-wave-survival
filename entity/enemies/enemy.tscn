@@ -4,8 +4,11 @@
 [ext_resource type="Script" uid="uid://ba2ef4shxsita" path="res://entity/enemies/enemy.gd" id="2_4hnbk"]
 [ext_resource type="Script" uid="uid://cje8uya78vvv8" path="res://entity/enemies/enemyController.gd" id="2_rit60"]
 
-[node name="enemy" unique_id=1129406718 instance=ExtResource("1_vrtnx")]
+[node name="enemy" unique_id=1129406718 node_paths=PackedStringArray("despawnTimer") instance=ExtResource("1_vrtnx")]
+collision_layer = 256
+collision_mask = 400
 script = ExtResource("2_4hnbk")
+despawnTimer = NodePath("despawnTimer")
 
 [node name="sprite" parent="." index="1" unique_id=399970410]
 region_rect = Rect2(0, 0, 64, 96)
@@ -26,7 +29,7 @@ fightStyle = 0
 path_desired_distance = 8.0
 target_desired_distance = 8.0
 path_postprocessing = 1
-debug_enabled = true
+avoidance_enabled = true
 
 [node name="fight" type="Area2D" parent="controller" index="1" unique_id=1234787158]
 collision_layer = 0
@@ -36,7 +39,13 @@ collision_mask = 4
 collision_layer = 0
 collision_mask = 4
 
+[node name="despawnTimer" type="Timer" parent="." index="5" unique_id=371889257]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="dead" from="coordinator/health" to="." method="_on_health_dead"]
 [connection signal="body_entered" from="controller/fight" to="controller" method="_on_fight_body_entered"]
 [connection signal="body_exited" from="controller/fight" to="controller" method="_on_fight_body_exited"]
 [connection signal="body_entered" from="controller/aggro" to="controller" method="_on_aggro_body_entered"]
 [connection signal="body_exited" from="controller/aggro" to="controller" method="_on_aggro_body_exited"]
+[connection signal="timeout" from="despawnTimer" to="." method="_on_despawn_timer_timeout"]

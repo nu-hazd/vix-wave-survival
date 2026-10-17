@@ -6,19 +6,19 @@
 [sub_resource type="Resource" id="Resource_od21b"]
 script = ExtResource("1_od21b")
 animationName = &"light1Active"
-durationTicks = 10
+durationTicks = 20
 metadata/_custom_type_script = "uid://b0npys624bfl7"
 
 [sub_resource type="Resource" id="Resource_jl3qn"]
 script = ExtResource("1_od21b")
 animationName = &"light1Recovery"
-durationTicks = 3
+durationTicks = 10
 metadata/_custom_type_script = "uid://b0npys624bfl7"
 
 [sub_resource type="Resource" id="Resource_jxoy6"]
 script = ExtResource("1_od21b")
 animationName = &"light1Startup"
-durationTicks = 2
+durationTicks = 6
 metadata/_custom_type_script = "uid://b0npys624bfl7"
 
 [resource]

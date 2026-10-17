@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Wave" format=3 uid="uid://r384f0tue2u1"]
+
+[ext_resource type="Script" uid="uid://dgwk4twpw8f1v" path="res://survival/Waves/wave.gd" id="1_wave"]
+
+[resource]
+script = ExtResource("1_wave")
+spawns = Dictionary[StringName, int]({
+&"katanaOffensive": 2
+})
+metadata/_custom_type_script = "uid://dgwk4twpw8f1v"

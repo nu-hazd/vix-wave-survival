@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://cmg5h2xh31tcr"]
+
+[ext_resource type="PackedScene" uid="uid://jsn31avkyusm" path="res://entity/enemies/nonBossEnemy.tscn" id="1_abl1m"]
+[ext_resource type="Texture2D" uid="uid://d0ghqp7bvil45" path="res://assets/visual/sprites/Red/enemyIdle1.png" id="2_lme0g"]
+[ext_resource type="PackedScene" uid="uid://ckt07qmbln8j6" path="res://entity/weapons/greatSword.tscn" id="3_hxqrt"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://bumugl8jjs8ox" path="res://entity/resources/enemyAnims/commonEnemy/enemy1tree.tres" id="3_lme0g"]
+[ext_resource type="AnimationLibrary" uid="uid://dsdxbce7dsxd7" path="res://entity/resources/enemy1anims.res" id="3_royia"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_df4xn"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_robfl"]
+radius = 51.088158
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qecne"]
+radius = 105.076164
+
+[node name="enemy" unique_id=1129406718 instance=ExtResource("1_abl1m")]
+collision_mask = 144
+
+[node name="collision" parent="." index="0" unique_id=1076632405]
+shape = SubResource("CircleShape2D_df4xn")
+
+[node name="sprite" parent="." index="1" unique_id=399970410]
+scale = Vector2(2, 2)
+texture = ExtResource("2_lme0g")
+hframes = 2
+frame = 0
+
+[node name="coordinator" parent="." index="2" unique_id=1873915501 node_paths=PackedStringArray("weapon")]
+weapon = NodePath("greatsword")
+
+[node name="greatsword" parent="coordinator" index="0" unique_id=78922822 instance=ExtResource("3_hxqrt")]
+
+[node name="guard" parent="coordinator" index="1" unique_id=1099355642]
+visible = false
+
+[node name="animHanlder" parent="coordinator/movement" parent_id_path=PackedInt32Array(2075889983) index="0" unique_id=230060077]
+root_node = NodePath("../../..")
+tree_root = ExtResource("3_lme0g")
+anim_player = NodePath("../animPlayer")
+parameters/conditions/dead = false
+parameters/conditions/idle = false
+parameters/conditions/move = false
+parameters/conditions/roll = false
+parameters/idle/blend_position = Vector2(-0.0067453384, 1.0325203)
+parameters/move/blend_position = Vector2(0, 0)
+parameters/roll/blend_position = Vector2(0.0016863346, 0.98190045)
+
+[node name="animPlayer" parent="coordinator/movement" parent_id_path=PackedInt32Array(2075889983) index="1" unique_id=1881139134]
+libraries/enemy1anims = ExtResource("3_royia")
+
+[node name="stats" parent="." index="3" unique_id=205009982]
+vigor = 20
+flow = 20
+
+[node name="controller" parent="." index="4" unique_id=1623090921]
+findPlayerChance = 20
+movementInterval = 50
+wanderRadius = 200
+fightSkill = 60
+disengageTime = 30
+attackOnePreference = 40
+
+[node name="CollisionShape2D" parent="controller/fight" parent_id_path=PackedInt32Array(1234787158) index="0" unique_id=1582186410]
+shape = SubResource("CircleShape2D_robfl")
+
+[node name="CollisionShape2D" parent="controller/aggro" parent_id_path=PackedInt32Array(916001271) index="0" unique_id=366078090]
+shape = SubResource("CircleShape2D_qecne")
+
+[node name="bars" parent="." index="5" unique_id=2003258560]
+offset_left = -43.0
+offset_top = -31.0
+offset_right = 725.0
+offset_bottom = 37.0
+scale = Vector2(0.115, 0.115)

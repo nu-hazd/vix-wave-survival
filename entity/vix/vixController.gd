@@ -1,6 +1,7 @@
 extends ControllerComponent
 class_name VixController
 
+var inShrine : bool = false
 
 func _physics_process(_delta: float) -> void:
 	setDirection(Input.get_vector("left","right","up","down"))

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="NightData" format=3 uid="uid://inv8le8djcfx"]
+
+[ext_resource type="Script" uid="uid://crachnncq0ksd" path="res://survival/Night/night.gd" id="1_aggjp"]
+[ext_resource type="Script" uid="uid://dgwk4twpw8f1v" path="res://survival/Waves/wave.gd" id="2_cu7nx"]
+[ext_resource type="Resource" uid="uid://r384f0tue2u1" path="res://survival/Waves/easy/0.tres" id="3_td62y"]
+[ext_resource type="Resource" uid="uid://bxrlv0ahs1alq" path="res://survival/Waves/med/0.tres" id="4_66s31"]
+
+[resource]
+script = ExtResource("1_aggjp")
+waves = Array[ExtResource("2_cu7nx")]([ExtResource("3_td62y"), ExtResource("4_66s31")])
+metadata/_custom_type_script = "uid://crachnncq0ksd"

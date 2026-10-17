@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="AttackData" format=3 uid="uid://c6ollk5wqrfqc"]
+
+[ext_resource type="Script" uid="uid://c8giwvbdsdva0" path="res://entity/weapons/abstract/attackData.gd" id="1_0or85"]
+[ext_resource type="Script" uid="uid://b0npys624bfl7" path="res://entity/weapons/abstract/attackPhase.gd" id="1_5853r"]
+
+[sub_resource type="Resource" id="Resource_tln8e"]
+script = ExtResource("1_5853r")
+animationName = &"swingActive"
+durationTicks = 20
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_85a54"]
+script = ExtResource("1_5853r")
+animationName = &"swingRecovery"
+durationTicks = 5
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_oaomi"]
+script = ExtResource("1_5853r")
+animationName = &"swingStart"
+durationTicks = 30
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[resource]
+script = ExtResource("1_0or85")
+id = &"katanaSwingLight"
+physicalDamage = 1
+guardDamage = 1
+startup = SubResource("Resource_oaomi")
+active = SubResource("Resource_tln8e")
+recovery = SubResource("Resource_85a54")
+metadata/_custom_type_script = "uid://c8giwvbdsdva0"

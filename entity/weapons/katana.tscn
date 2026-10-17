@@ -1,66 +1,39 @@
 [gd_scene format=3 uid="uid://dsjqsiycj4442"]
 
 [ext_resource type="PackedScene" uid="uid://kh4lkynx35yo" path="res://entity/weapons/abstract/weapon.tscn" id="1_miw4x"]
-[ext_resource type="Script" uid="uid://ds4eswelrffmp" path="res://entity/weapons/katana.gd" id="2_miw4x"]
 [ext_resource type="PackedScene" uid="uid://cx48dqe5d7aut" path="res://entity/weapons/abstract/hitbox.tscn" id="3_c1t6h"]
+[ext_resource type="Resource" uid="uid://c6ollk5wqrfqc" path="res://entity/weapons/attacks/katana/katanaSwingLight.tres" id="3_qg767"]
 [ext_resource type="Script" uid="uid://c8giwvbdsdva0" path="res://entity/weapons/abstract/attackData.gd" id="3_vd3d6"]
+[ext_resource type="AudioStream" uid="uid://biqeenjrrvlff" path="res://assets/sfx/swing.mp3" id="5_c1t6h"]
 [ext_resource type="Script" uid="uid://b0npys624bfl7" path="res://entity/weapons/abstract/attackPhase.gd" id="5_vd3d6"]
 
-[sub_resource type="Resource" id="Resource_tln8e"]
+[sub_resource type="Resource" id="Resource_rr4gu"]
 script = ExtResource("5_vd3d6")
 animationName = &"swingActive"
 durationTicks = 20
 metadata/_custom_type_script = "uid://b0npys624bfl7"
 
-[sub_resource type="Resource" id="Resource_85a54"]
-script = ExtResource("5_vd3d6")
-animationName = &"swingRecovery"
-durationTicks = 5
-metadata/_custom_type_script = "uid://b0npys624bfl7"
-
-[sub_resource type="Resource" id="Resource_oaomi"]
-script = ExtResource("5_vd3d6")
-animationName = &"swingStart"
-durationTicks = 30
-metadata/_custom_type_script = "uid://b0npys624bfl7"
-
-[sub_resource type="Resource" id="Resource_c1t6h"]
-script = ExtResource("3_vd3d6")
-id = &"katanaSwingLight"
-physicalDamage = 5
-guardDamage = 5
-knockback = 25
-startup = SubResource("Resource_oaomi")
-active = SubResource("Resource_tln8e")
-recovery = SubResource("Resource_85a54")
-metadata/_custom_type_script = "uid://c8giwvbdsdva0"
-
-[sub_resource type="Resource" id="Resource_vd3d6"]
-script = ExtResource("5_vd3d6")
-animationName = &"swingActive"
-durationTicks = 60
-metadata/_custom_type_script = "uid://b0npys624bfl7"
-
-[sub_resource type="Resource" id="Resource_qg767"]
-script = ExtResource("5_vd3d6")
-animationName = &"swingRecovery"
-durationTicks = 40
-metadata/_custom_type_script = "uid://b0npys624bfl7"
-
-[sub_resource type="Resource" id="Resource_rr4gu"]
-script = ExtResource("5_vd3d6")
-animationName = &"swingStart"
-durationTicks = 60
-metadata/_custom_type_script = "uid://b0npys624bfl7"
-
 [sub_resource type="Resource" id="Resource_25edi"]
+script = ExtResource("5_vd3d6")
+animationName = &"swingRecovery"
+durationTicks = 20
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_wrvd4"]
+script = ExtResource("5_vd3d6")
+animationName = &"swingStart"
+durationTicks = 60
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_hxr2h"]
 script = ExtResource("3_vd3d6")
 id = &"katanaSwingHeavy"
-physicalDamage = 5
-guardDamage = 5
-startup = SubResource("Resource_rr4gu")
-active = SubResource("Resource_vd3d6")
-recovery = SubResource("Resource_qg767")
+physicalDamage = 3
+guardDamage = 3
+knockback = 10
+startup = SubResource("Resource_wrvd4")
+active = SubResource("Resource_rr4gu")
+recovery = SubResource("Resource_25edi")
 metadata/_custom_type_script = "uid://c8giwvbdsdva0"
 
 [sub_resource type="Animation" id="Animation_miw4x"]
@@ -92,22 +65,10 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("pivot/blade:color")
+tracks/2/path = NodePath("pivot:modulate:a")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.24840015, 0.24840018, 0.24840015, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("pivot:modulate:a")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -141,18 +102,6 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(6, 0)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("pivot/blade:color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.83889705, 0.83889705, 0.838897, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_vd3d6"]
 resource_name = "swingRecovery"
@@ -168,18 +117,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [1.0, 0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("pivot/blade:color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.24840015, 0.24840018, 0.24840015, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_itapa"]
@@ -212,22 +149,10 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("pivot/blade:color")
+tracks/2/path = NodePath("pivot:modulate:a")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(0.24840015, 0.24840018, 0.24840015, 1), Color(0.5132329, 0.51323295, 0.51323277, 1), Color(0.24840015, 0.24840018, 0.24840015, 1), Color(0.5132329, 0.51323295, 0.51323277, 1), Color(0.24840015, 0.24840018, 0.24840015, 1), Color(0.5132329, 0.51323295, 0.51323277, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("pivot:modulate:a")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
@@ -243,11 +168,10 @@ _data = {
 }
 
 [node name="katana" unique_id=78922822 node_paths=PackedStringArray("hitbox", "hitboxDisplay") instance=ExtResource("1_miw4x")]
-script = ExtResource("2_miw4x")
 hitbox = NodePath("pivot/bladeHitbox")
 hitboxDisplay = NodePath("pivot/blade")
-attackChain0 = Array[ExtResource("3_vd3d6")]([SubResource("Resource_c1t6h")])
-attackChain1 = Array[ExtResource("3_vd3d6")]([SubResource("Resource_25edi")])
+attackChain0 = Array[ExtResource("3_vd3d6")]([ExtResource("3_qg767")])
+attackChain1 = Array[ExtResource("3_vd3d6")]([SubResource("Resource_hxr2h")])
 
 [node name="pivot" type="Node2D" parent="." index="0" unique_id=482610853]
 modulate = Color(1, 1, 1, 0)
@@ -273,3 +197,9 @@ polygon = PackedVector2Array(4, -1, 18, -1, 14, 1, 4, 1)
 
 [node name="attacks" parent="." index="1" unique_id=640062531]
 libraries/ = SubResource("AnimationLibrary_c1t6h")
+
+[node name="0" parent="." index="2" unique_id=580696104]
+stream = ExtResource("5_c1t6h")
+
+[node name="1" parent="." index="3" unique_id=1373644285]
+stream = ExtResource("5_c1t6h")

@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="AttackData" format=3 uid="uid://ctg7em6hlfe1f"]
+
+[ext_resource type="Script" uid="uid://c8giwvbdsdva0" path="res://entity/weapons/abstract/attackData.gd" id="1_6seyo"]
+[ext_resource type="Script" uid="uid://b0npys624bfl7" path="res://entity/weapons/abstract/attackPhase.gd" id="1_ja4a6"]
+
+[sub_resource type="Resource" id="Resource_vi25l"]
+script = ExtResource("1_ja4a6")
+animationName = &"heavy0Active"
+durationTicks = 20
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_1dm2g"]
+script = ExtResource("1_ja4a6")
+animationName = &"heavy0Recovery"
+durationTicks = 10
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[sub_resource type="Resource" id="Resource_ja4a6"]
+script = ExtResource("1_ja4a6")
+animationName = &"heavy0Startup"
+durationTicks = 60
+metadata/_custom_type_script = "uid://b0npys624bfl7"
+
+[resource]
+script = ExtResource("1_6seyo")
+id = &"vixHeavyThrust0"
+guardDamage = 9
+pureGuard = true
+startup = SubResource("Resource_ja4a6")
+active = SubResource("Resource_vi25l")
+recovery = SubResource("Resource_1dm2g")
+movementMultiplier = 0.2
+sfx = 1
+metadata/_custom_type_script = "uid://c8giwvbdsdva0"

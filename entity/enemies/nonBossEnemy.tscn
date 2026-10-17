@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://jsn31avkyusm"]
+
+[ext_resource type="PackedScene" uid="uid://bq644umpsvatx" path="res://entity/enemies/enemy.tscn" id="1_3hrcf"]
+[ext_resource type="PackedScene" uid="uid://chi6wpxupv7e7" path="res://entity/components/healthBar.tscn" id="3_50y62"]
+[ext_resource type="PackedScene" uid="uid://x3xrsj6yyuet" path="res://entity/components/guardBar.tscn" id="8_sfkr3"]
+
+[sub_resource type="Animation" id="Animation_dnt66"]
+resource_name = "flee"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tcq28"]
+_data = {
+&"flee": SubResource("Animation_dnt66")
+}
+
+[node name="enemy" unique_id=1129406718 instance=ExtResource("1_3hrcf")]
+
+[node name="collision" parent="." index="0" unique_id=1076632405]
+position = Vector2(0, 4)
+
+[node name="sprite" parent="." index="1" unique_id=399970410]
+hframes = 3
+vframes = 3
+frame = 3
+region_rect = Rect2(4.0453186, 38.042732, 21.092525, 19.947975)
+
+[node name="guard" parent="coordinator" parent_id_path=PackedInt32Array(1873915501) index="0" unique_id=1099355642 node_paths=PackedStringArray("guardBar")]
+guardBar = NodePath("../../bars/guardBar")
+
+[node name="health" parent="coordinator" parent_id_path=PackedInt32Array(1873915501) index="1" unique_id=1583941059 node_paths=PackedStringArray("healthBar")]
+healthBar = NodePath("../../bars/HealthBar")
+
+[node name="hurt" parent="coordinator/health" index="0" unique_id=177923404]
+volume_db = -12.0
+
+[node name="controller" parent="." index="4" unique_id=1623090921]
+attackOnePreference = 50
+
+[node name="pathfinder" parent="controller" index="0" unique_id=2129943340]
+path_postprocessing = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="controller/fight" parent_id_path=PackedInt32Array(1234787158) index="0" unique_id=1582186410]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="controller/aggro" parent_id_path=PackedInt32Array(916001271) index="0" unique_id=366078090]
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="bars" type="VBoxContainer" parent="." index="5" unique_id=2003258560]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 758.0
+offset_bottom = 58.0
+scale = Vector2(0.025, 0.025)
+
+[node name="HealthBar" parent="bars" index="0" unique_id=2073991629 instance=ExtResource("3_50y62")]
+layout_mode = 2
+
+[node name="guardBar" parent="bars" index="1" unique_id=496599312 instance=ExtResource("8_sfkr3")]
+layout_mode = 2
+
+[node name="fleeAnim" type="AnimationPlayer" parent="." index="7" unique_id=2041361495]
+libraries/ = SubResource("AnimationLibrary_tcq28")

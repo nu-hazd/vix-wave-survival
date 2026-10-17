@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://xj4efn2vfq0q"]
+
+[ext_resource type="PackedScene" uid="uid://jsn31avkyusm" path="res://entity/enemies/nonBossEnemy.tscn" id="1_5grpw"]
+[ext_resource type="Texture2D" uid="uid://b82mia0k646x7" path="res://assets/visual/sprites/Red/enemyIdle0.png" id="2_j0kwg"]
+[ext_resource type="PackedScene" uid="uid://dsjqsiycj4442" path="res://entity/weapons/katana.tscn" id="2_s7god"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://d2egyimm42khm" path="res://entity/resources/enemyAnims/commonEnemy/enemy0tree.tres" id="4_mus7o"]
+[ext_resource type="AnimationLibrary" uid="uid://c1tmcfa1wxhns" path="res://entity/resources/enemy0anims.res" id="5_kvnbp"]
+[ext_resource type="FontFile" uid="uid://bq7t41u0h74he" path="res://assets/visual/RasterForgeRegular-JpBgm.ttf" id="6_mus7o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m0o8g"]
+radius = 4.1231055
+
+[sub_resource type="Animation" id="Animation_kvnbp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ohxjo"]
+resource_name = "nothing"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.06666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c1ej8"]
+_data = {
+&"RESET": SubResource("Animation_kvnbp"),
+&"nothing": SubResource("Animation_ohxjo")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j0kwg"]
+radius = 19.026299
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mus7o"]
+radius = 42.047592
+
+[sub_resource type="LabelSettings" id="LabelSettings_qgwgs"]
+font = ExtResource("6_mus7o")
+font_size = 8
+
+[sub_resource type="GDScript" id="GDScript_fvs06"]
+script/source = "extends Label
+
+func _process(delta: float) -> void:
+	text = \"\"\"
+		Guard: %f
+		Max Guard: %f
+		Bar Value: %f
+		Bar max value: %f
+		Dir : %s
+		
+	\"\"\" % [
+		$\"../coordinator/guard\".currentGuard,
+		$\"../coordinator/guard\".maxGuard,
+		$\"../coordinator/guard\".guardBar.value,
+		$\"../coordinator/guard\".guardBar.max_value,
+		$\"../coordinator/movement\".lastDir
+	\\
+		
+	]
+"
+
+[node name="enemy" unique_id=1129406718 instance=ExtResource("1_5grpw")]
+collision_mask = 144
+
+[node name="collision" parent="." index="0" unique_id=1076632405]
+shape = SubResource("CircleShape2D_m0o8g")
+
+[node name="sprite" parent="." index="1" unique_id=399970410]
+texture = ExtResource("2_j0kwg")
+hframes = 2
+frame = 2
+
+[node name="coordinator" parent="." index="2" unique_id=1873915501 node_paths=PackedStringArray("weapon")]
+weapon = NodePath("katana")
+
+[node name="katana" parent="coordinator" index="0" unique_id=78922822 instance=ExtResource("2_s7god")]
+
+[node name="animHanlder" parent="coordinator/movement" parent_id_path=PackedInt32Array(2075889983) index="0" unique_id=230060077]
+root_node = NodePath("../../..")
+tree_root = ExtResource("4_mus7o")
+anim_player = NodePath("../animPlayer")
+parameters/conditions/dead = false
+parameters/conditions/idle = false
+parameters/conditions/move = false
+parameters/conditions/roll = false
+parameters/idle/blend_position = Vector2(0, 0)
+parameters/move/blend_position = Vector2(0, 0)
+parameters/roll/blend_position = Vector2(0, 0)
+
+[node name="animPlayer" parent="coordinator/movement" parent_id_path=PackedInt32Array(2075889983) index="1" unique_id=1881139134]
+libraries/ = SubResource("AnimationLibrary_c1ej8")
+libraries/enemy0anims = ExtResource("5_kvnbp")
+
+[node name="stats" parent="." index="3" unique_id=205009982]
+vigor = 6
+dexterity = 20
+
+[node name="controller" parent="." index="4" unique_id=1623090921]
+findPlayerChance = 15
+forgetPlayerTime = 200
+fightSkill = 70
+disengageTime = 30
+fightStyle = 1
+
+[node name="CollisionShape2D" parent="controller/fight" parent_id_path=PackedInt32Array(1234787158) index="0" unique_id=1582186410]
+shape = SubResource("CircleShape2D_j0kwg")
+
+[node name="CollisionShape2D" parent="controller/aggro" parent_id_path=PackedInt32Array(916001271) index="0" unique_id=366078090]
+shape = SubResource("CircleShape2D_mus7o")
+
+[node name="bars" parent="." index="5" unique_id=2003258560]
+offset_left = -13.0
+offset_right = 755.0
+scale = Vector2(0.035, 0.035)
+
+[node name="Label" type="Label" parent="." index="8" unique_id=1874259931]
+visible = false
+offset_left = -8.0
+offset_top = 10.0
+offset_right = 32.0
+offset_bottom = 33.0
+label_settings = SubResource("LabelSettings_qgwgs")
+script = SubResource("GDScript_fvs06")

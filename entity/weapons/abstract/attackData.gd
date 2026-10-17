@@ -8,11 +8,12 @@ extends Resource
 @export var guardDamage : int
 @export var knockback : int
 @export var unblockable : bool = false
-
+@export var pureGuard : bool = false
 @export_group("Phases")
 @export var startup : AttackPhase
 @export var active : AttackPhase
 @export var recovery : AttackPhase
-
 @export_group("Movement")
 @export var movementMultiplier : float = 0.5
+@export_group("Audio")
+@export_range(0,1,1,"prefer_slider") var sfx : int = 0 

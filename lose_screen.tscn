@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://bmocqrwbwc3in"]
+
+[ext_resource type="FontFile" uid="uid://bq7t41u0h74he" path="res://assets/visual/RasterForgeRegular-JpBgm.ttf" id="1_7hir2"]
+[ext_resource type="StyleBox" uid="uid://bkba41g1who4b" path="res://buttonNormal.tres" id="2_6mmkj"]
+[ext_resource type="StyleBox" uid="uid://cdaqp17t1bkj1" path="res://buttonPressHover.tres" id="3_ed4nj"]
+
+[sub_resource type="GDScript" id="GDScript_r1pgd"]
+script/source = "extends Control
+
+
+func _ready() -> void:
+	$VBoxContainer/replay.grab_focus()
+func _on_label_2_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://main.tscn\")
+
+
+func _on_menu_pressed() -> void:
+	get_tree().quit()
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fvs06"]
+bg_color = Color(0.12225222, 0.12225225, 0.12225217, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_coyju"]
+font = ExtResource("1_7hir2")
+font_size = 128
+font_color = Color(0.69654006, 0.05919323, 0, 1)
+
+[node name="loseScreen" type="Control" unique_id=1486165882]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_r1pgd")
+
+[node name="bg" type="Panel" parent="." unique_id=1755650089]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fvs06")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=652952620]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1633680109]
+layout_mode = 2
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_coyju")
+
+[node name="replay" type="Button" parent="VBoxContainer" unique_id=621442114]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_7hir2")
+theme_override_font_sizes/font_size = 33
+theme_override_styles/normal = ExtResource("2_6mmkj")
+theme_override_styles/normal_mirrored = ExtResource("2_6mmkj")
+theme_override_styles/pressed = ExtResource("3_ed4nj")
+theme_override_styles/pressed_mirrored = ExtResource("3_ed4nj")
+theme_override_styles/hover = ExtResource("3_ed4nj")
+theme_override_styles/hover_mirrored = ExtResource("3_ed4nj")
+theme_override_styles/hover_pressed = ExtResource("3_ed4nj")
+theme_override_styles/hover_pressed_mirrored = ExtResource("3_ed4nj")
+text = "REPLAY"
+
+[node name="menu" type="Button" parent="VBoxContainer" unique_id=88955230]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_7hir2")
+theme_override_font_sizes/font_size = 33
+theme_override_styles/normal = ExtResource("2_6mmkj")
+theme_override_styles/normal_mirrored = ExtResource("2_6mmkj")
+theme_override_styles/pressed = ExtResource("3_ed4nj")
+theme_override_styles/pressed_mirrored = ExtResource("3_ed4nj")
+theme_override_styles/hover = ExtResource("3_ed4nj")
+theme_override_styles/hover_mirrored = ExtResource("3_ed4nj")
+theme_override_styles/hover_pressed = ExtResource("3_ed4nj")
+theme_override_styles/hover_pressed_mirrored = ExtResource("3_ed4nj")
+text = "QUIT"
+
+[connection signal="pressed" from="VBoxContainer/replay" to="." method="_on_label_2_pressed"]
+[connection signal="pressed" from="VBoxContainer/menu" to="." method="_on_menu_pressed"]

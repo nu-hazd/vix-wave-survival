@@ -7,3 +7,7 @@ script = ExtResource("1_5y3ho")
 metadata/_custom_type_script = "uid://dc64e780foimq"
 
 [node name="attacks" type="AnimationPlayer" parent="." unique_id=640062531]
+
+[node name="0" type="AudioStreamPlayer2D" parent="." unique_id=580696104]
+
+[node name="1" type="AudioStreamPlayer2D" parent="." unique_id=1373644285]

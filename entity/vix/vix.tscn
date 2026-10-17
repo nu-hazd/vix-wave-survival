@@ -3,11 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://2xu365g3h5gv" path="res://entity/entity.tscn" id="1_8e3um"]
 [ext_resource type="Script" uid="uid://c1erh4wlj2ch6" path="res://entity/vix/vix.gd" id="2_dmy6b"]
 [ext_resource type="PackedScene" uid="uid://bns7s2mb2dd76" path="res://entity/vix/vixWeapon.tscn" id="3_dmy6b"]
+[ext_resource type="Script" uid="uid://0y2i7mgmivm8" path="res://entity/vix/vixCamera.gd" id="3_jaojs"]
 [ext_resource type="Script" uid="uid://cooq3k1wb356u" path="res://entity/vix/vixController.gd" id="5_ntvab"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://6ww1x8jp4koa" path="res://entity/resources/defaultMovement.tres" id="5_rdmia"]
 [ext_resource type="Texture2D" uid="uid://u6xp27qvab60" path="res://assets/visual/sprites/Red/idle.png" id="5_xv7w4"]
 [ext_resource type="Texture2D" uid="uid://dtxarqcty8lrg" path="res://assets/visual/sprites/Red/walk.png" id="6_xv7w4"]
 [ext_resource type="AnimationLibrary" uid="uid://cp0glndy1n1tw" path="res://entity/resources/movement.res" id="8_dmy6b"]
+[ext_resource type="PackedScene" uid="uid://x3xrsj6yyuet" path="res://entity/components/guardBar.tscn" id="9_vpchy"]
+[ext_resource type="PackedScene" uid="uid://chi6wpxupv7e7" path="res://entity/components/healthBar.tscn" id="10_jaojs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qgwgs"]
 radius = 4.0
@@ -608,16 +611,21 @@ _data = {
 &"roll_U": SubResource("Animation_ysqm6")
 }
 
-[sub_resource type="LabelSettings" id="LabelSettings_g2k83"]
-font_size = 8
-
-[node name="Vix" unique_id=1129406718 instance=ExtResource("1_8e3um")]
-collision_layer = 4
-collision_mask = 16
+[node name="Vix" unique_id=1129406718 node_paths=PackedStringArray("camera") instance=ExtResource("1_8e3um")]
+collision_layer = 148
+collision_mask = 304
 script = ExtResource("2_dmy6b")
+camera = NodePath("camera")
 
 [node name="camera" type="Camera2D" parent="." index="0" unique_id=1646983823]
-zoom = Vector2(3, 3)
+zoom = Vector2(5, 5)
+limit_left = 0
+limit_top = 0
+limit_right = 800
+limit_bottom = 608
+limit_smoothed = true
+position_smoothing_enabled = true
+script = ExtResource("3_jaojs")
 
 [node name="collision" parent="." index="1" unique_id=1076632405]
 position = Vector2(0, 4)
@@ -626,10 +634,13 @@ shape = SubResource("CircleShape2D_qgwgs")
 [node name="coordinator" parent="." index="3" unique_id=1873915501 node_paths=PackedStringArray("weapon")]
 weapon = NodePath("vixWeapon")
 
-[node name="guard" parent="coordinator" index="0" unique_id=1099355642]
-scale = Vector2(0.48962384, 0.7117015)
+[node name="guard" parent="coordinator" index="0" unique_id=1099355642 node_paths=PackedStringArray("guardBar")]
+guardBar = NodePath("../../ui/vixUI/combat/VBoxContainer/guardBar")
 
 [node name="vixWeapon" parent="coordinator" index="1" unique_id=78922822 instance=ExtResource("3_dmy6b")]
+
+[node name="health" parent="coordinator" index="2" unique_id=1583941059 node_paths=PackedStringArray("healthBar")]
+healthBar = NodePath("../../ui/vixUI/combat/VBoxContainer/HealthBar")
 
 [node name="animHanlder" parent="coordinator/movement" parent_id_path=PackedInt32Array(2075889983) index="0" unique_id=230060077]
 root_node = NodePath("../../..")
@@ -647,16 +658,53 @@ libraries/ = SubResource("AnimationLibrary_52xb4")
 libraries/movement = ExtResource("8_dmy6b")
 
 [node name="stats" parent="." index="4" unique_id=205009982]
-vigor = 40
-dexterity = 37
+vigor = 20
+technique = 20
+dexterity = 20
+flow = 20
 
 [node name="controller" parent="." index="5" unique_id=1623090921]
 script = ExtResource("5_ntvab")
 
-[node name="Label" parent="CanvasLayer" parent_id_path=PackedInt32Array(779868505) index="0" unique_id=689017408]
-offset_left = -32.0
-offset_top = -38.0
-offset_right = 8.0
-offset_bottom = -15.0
-text = "sda"
-label_settings = SubResource("LabelSettings_g2k83")
+[node name="ui" type="CanvasLayer" parent="." index="6" unique_id=651530189]
+
+[node name="vixUI" type="Control" parent="ui" index="0" unique_id=880310328]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="combat" type="Control" parent="ui/vixUI" index="0" unique_id=1730672564]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/vixUI/combat" index="0" unique_id=811435695]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -384.0
+offset_top = -68.0
+offset_right = 384.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HealthBar" parent="ui/vixUI/combat/VBoxContainer" index="0" unique_id=2073991629 instance=ExtResource("10_jaojs")]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="guardBar" parent="ui/vixUI/combat/VBoxContainer" index="1" unique_id=496599312 instance=ExtResource("9_vpchy")]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[connection signal="attackBlocked" from="coordinator/guard" to="camera" method="_on_guard_attack_blocked"]
+[connection signal="attackParried" from="coordinator/guard" to="camera" method="_on_guard_attack_parried"]
+[connection signal="damageTaken" from="coordinator/health" to="camera" method="_on_health_damage_taken"]

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LinearDialogue" format=3 uid="uid://btuf8d0oe8vai"]
+
+[ext_resource type="Script" uid="uid://dcx5ehsbh8k12" path="res://core/DialogueSystem/Types/linearDialogue.gd" id="1_8p2oq"]
+[ext_resource type="Resource" uid="uid://8s8ue1ns4uwf" path="res://shrine/Dialogues/Himeko/night1/apology/1.tres" id="1_503kx"]
+
+[resource]
+script = ExtResource("1_8p2oq")
+nextDialogue = ExtResource("1_503kx")
+speaker = "Himeko"
+text = "I'm sorry for overwriting your configuration."
+metadata/_custom_type_script = "uid://dcx5ehsbh8k12"

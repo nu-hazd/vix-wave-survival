@@ -7,6 +7,7 @@ signal dead
 
 @export var sprite : Sprite2D
 @export var stats : EntityStatsComponent
+var ded : bool = false
 
 func _ready() -> void:
 	controller.actionRequested.connect(coordinator.actionRequested)
@@ -15,4 +16,5 @@ func _ready() -> void:
 	coordinator.start(self)
 
 func died() -> void:
+	ded = true
 	dead.emit()

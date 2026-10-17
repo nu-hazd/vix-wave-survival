@@ -26,6 +26,7 @@ enum ATTACK_STATE {
 
 
 @onready var animationPlayer: AnimationPlayer = $attacks
+@onready var sfxPlayers : Array[AudioStreamPlayer2D] = [$"0", $"1"]
 
 @export var hitbox: WeaponHitbox
 @export var hitboxDisplay : Polygon2D
@@ -179,6 +180,7 @@ func startAttack(attack: AttackData) -> void:
 		enterIdle()
 		return
 	currentAttack = attack
+	print("Atk: %s Is unlbock: %s" % [currentAttack.id,currentAttack.unblockable])
 	attackStarted.emit(currentAttack.id)
 	enterStartup()
 
@@ -204,17 +206,24 @@ func enterStartup() -> void:
 	)
 	ticksRemaining = currentAttack.startup.durationTicks
 	playPhase(currentAttack.startup)
-	if currentAttack.unblockable:
+	if currentAttack.pureGuard:
+		hitboxDisplay.color = Color.GREEN
+	elif currentAttack.unblockable:
 		hitboxDisplay.color = Color.LIGHT_CORAL
 	else:
 		hitboxDisplay.color = Color.WEB_GRAY
 func enterActive() -> void:
+	var useSfx : int = currentAttack.sfx
+	sfxPlayers[useSfx].pitch_scale = randf_range(0.90,1.10)
+	sfxPlayers[useSfx].play()
 	setState(ATTACK_STATE.ACTIVE)
 	ticksRemaining = currentAttack.active.durationTicks
 	hitbox.setAttack(currentAttack)
 	hitbox.activate()
 	playPhase(currentAttack.active)
-	if currentAttack.unblockable:
+	if currentAttack.pureGuard:
+		hitboxDisplay.color = Color.GREEN
+	elif currentAttack.unblockable:
 		hitboxDisplay.color = Color.RED
 	else:
 		hitboxDisplay.color = Color.WHITE

@@ -23,7 +23,7 @@ metadata/_custom_type_script = "uid://b0npys624bfl7"
 
 [resource]
 script = ExtResource("2_gqn2l")
-id = &"vixSwing1"
+id = &"vixSwing2"
 physicalDamage = 8
 guardDamage = 3
 knockback = 8

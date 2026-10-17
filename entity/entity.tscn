@@ -7,34 +7,17 @@
 [ext_resource type="PackedScene" uid="uid://dwxi01k08qi57" path="res://entity/components/guard.tscn" id="3_8vg6i"]
 [ext_resource type="Script" uid="uid://bykjgw77guege" path="res://entity/components/stats.gd" id="3_v200u"]
 [ext_resource type="Script" uid="uid://bj45n3wpons3o" path="res://entity/states/idle.gd" id="5_jspmv"]
+[ext_resource type="AudioStream" uid="uid://bsn45kv5nf4el" path="res://assets/sfx/hurt.wav" id="5_qs5px"]
 [ext_resource type="Script" uid="uid://b3hcg8ps56c2v" path="res://entity/states/move.gd" id="6_s1kue"]
 [ext_resource type="Script" uid="uid://c0jdjshgu1ydc" path="res://entity/states/roll.gd" id="8_8vg6i"]
-[ext_resource type="Script" uid="uid://ega8kmwgcsj5" path="res://entity/states/movementState.gd" id="8_g2k83"]
 [ext_resource type="Script" uid="uid://0ax1o1tb8h5e" path="res://entity/components/health.gd" id="8_whxwk"]
+[ext_resource type="Script" uid="uid://decwecylmh430" path="res://entity/states/stun.gd" id="9_psl4n"]
 [ext_resource type="Script" uid="uid://b00l0dpkc668s" path="res://entity/states/death.gd" id="10_f6k7f"]
 [ext_resource type="Script" uid="uid://dsqldxu5dgcej" path="res://entity/states/push.gd" id="11_psl4n"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_g2k83"]
-font_size = 32
-
-[sub_resource type="GDScript" id="GDScript_qgwgs"]
-script/source = "extends Label
-
-
-func _process(_delta: float) -> void:
-	text = \"\"\"
-			State: %s
-			Health: %s
-			Guard: %s
-			Guard State: %s 
-	\"\"\" % [ $\"../../coordinator/movement\".getCurrentStateName(),
-			$\"../../coordinator/health\".health,
-			$\"../../coordinator/guard\".currentGuard,
-			$\"../../coordinator/guard\".state
-			]
-"
-
 [node name="Entity" type="CharacterBody2D" unique_id=1129406718 node_paths=PackedStringArray("sprite", "stats")]
+collision_layer = 0
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_bclhr")
 sprite = NodePath("sprite")
@@ -57,6 +40,10 @@ metadata/_custom_type_script = "uid://dd4uyd4o7vs64"
 [node name="health" type="Node" parent="coordinator" unique_id=1583941059]
 script = ExtResource("8_whxwk")
 
+[node name="hurt" type="AudioStreamPlayer2D" parent="coordinator/health" unique_id=177923404]
+stream = ExtResource("5_qs5px")
+volume_db = -2.0
+
 [node name="movement" type="Node" parent="coordinator" unique_id=2075889983 node_paths=PackedStringArray("initialState")]
 script = ExtResource("2_mckvm")
 initialState = NodePath("states/idle")
@@ -78,7 +65,7 @@ script = ExtResource("6_s1kue")
 script = ExtResource("8_8vg6i")
 
 [node name="stun" type="Node" parent="coordinator/movement/states" unique_id=281262726]
-script = ExtResource("8_g2k83")
+script = ExtResource("9_psl4n")
 
 [node name="death" type="Node" parent="coordinator/movement/states" unique_id=617858435]
 script = ExtResource("10_f6k7f")
@@ -94,20 +81,4 @@ metadata/_custom_type_script = "uid://bykjgw77guege"
 script = ExtResource("2_glcaf")
 metadata/_custom_type_script = "uid://ce8q3hbypkubb"
 
-[node name="CanvasLayer" type="Control" parent="." unique_id=779868505]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="CanvasLayer" unique_id=689017408]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-label_settings = SubResource("LabelSettings_g2k83")
-script = SubResource("GDScript_qgwgs")
+[connection signal="guardBroken" from="coordinator/guard" to="coordinator" method="_on_guard_guard_broken"]
